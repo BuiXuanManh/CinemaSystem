@@ -1,6 +1,6 @@
 import {Form,Button} from 'react-bootstrap';
 
-const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
+const ViewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
   return (
 
     <Form>
@@ -8,10 +8,10 @@ const ReviewForm = ({handleSubmit,revText,labelText,defaultValue}) => {
             <Form.Label>{labelText}</Form.Label>
             <Form.Control ref={revText} as="textarea" rows={3} defaultValue={defaultValue} />
         </Form.Group>
-        <Button variant="outline-info" onClick={handleSubmit}>Submit</Button>
+        <Button variant="outline-info" onClick={handleSubmit}>Bình luận</Button>
     </Form>   
 
   )
 }
 
-export default ReviewForm
+export default ViewForm

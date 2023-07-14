@@ -1,4 +1,4 @@
-package dev.farhan.movieist.movies;
+package dev.farhan.movieist.movies.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,14 +26,10 @@ public class Movie {
     private List<String> genres;
     @DocumentReference
     private List<Review> reviews;
+    private String duration;
+    private String showtime;
+    private Double ticketPrice;
+    private int seatOrdered;
+    private int seatMax;
 
-    public Movie(String imdbId, String title, String releaseDate, String trailerLink, String poster, List<String> backdrops, List<String> genres) {
-        this.imdbId = imdbId;
-        this.title = title;
-        this.releaseDate = releaseDate;
-        this.trailerLink = trailerLink;
-        this.poster = poster;
-        this.backdrops = backdrops;
-        this.genres = genres;
-    }
 }

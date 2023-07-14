@@ -1,5 +1,7 @@
-package dev.farhan.movieist.movies;
+package dev.farhan.movieist.movies.controller;
 
+import dev.farhan.movieist.movies.model.Movie;
+import dev.farhan.movieist.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

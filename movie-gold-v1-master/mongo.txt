@@ -1,0 +1,1 @@
+mongosh mongodb+srvsasapassword@cluster0.l3vkgps.mongodb.net

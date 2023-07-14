@@ -37,8 +37,10 @@
     align-items: center;
 }
 .movie-t2{
-    color:brown;
+    color:black;
+    font-weight: bold;
     align-items: center;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .movie-buttons-container{
@@ -65,6 +67,11 @@
     font-size: 4rem;
     color:white;
 }
+.btnReview{
+    width:300px;
+    justify-content: space-between;
+}
+
 
 @media only screen and (max-width: 800px) {
     .movie-detail{

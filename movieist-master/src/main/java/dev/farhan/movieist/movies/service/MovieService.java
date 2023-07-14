@@ -1,5 +1,7 @@
-package dev.farhan.movieist.movies;
+package dev.farhan.movieist.movies.service;
 
+import dev.farhan.movieist.movies.model.Movie;
+import dev.farhan.movieist.movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
