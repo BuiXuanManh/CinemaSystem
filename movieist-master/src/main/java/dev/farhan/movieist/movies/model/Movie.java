@@ -31,5 +31,6 @@ public class Movie {
     private Double ticketPrice;
     private int seatOrdered;
     private int seatMax;
+    private List<Seat> seat;
 
 }

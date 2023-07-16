@@ -4,18 +4,20 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col,Form,Button } from 'react-bootstrap';
 import ViewForm from '../viewform/ViewForm';
 
+import SeatForm from '../seatForm/SeatForm';
+
 import React from 'react'
 
 const Views = ({ getMovieData, movie, reviews, setReviews }) => {
 
     const revText = useRef();
+    const seatText= useRef();
     let params = useParams();
     const movieId = params.movieId;
 
     useEffect(() => {
         getMovieData(movieId);
     }, [])
-
     const addReview = async (e) => {
         e.preventDefault();
 
@@ -29,6 +31,24 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
             rev.value = "";
 
             setReviews(updatedReviews);
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+    const choseSeat = async (e) => {
+        e.preventDefault();
+
+        const s = seatText.current;
+
+        try {
+            const response = await api.post("/api/v1/seats", { seatBody: s.value, imdbId: movieId });
+
+            const updatedSeats = [...seats, { body: s.value }];
+
+            rev.value = "";
+
+            setReviews(updatedSeats);
         }
         catch (err) {
             console.error(err);
@@ -123,11 +143,7 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                                     <hr />
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col>
-                                    <Button className="btn btn-success" style={{width:"100%"}} >Đặt vé</Button>
-                                </Col>
-                            </Row>
+                            <SeatForm />
                             <Row className='mt-3'>
                                 <Col>
                                     <hr />
