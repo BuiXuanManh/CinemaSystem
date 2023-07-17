@@ -21,7 +21,7 @@ public class SeatService {
     private MongoTemplate mongoTemplate;
 
     public Seat createReview(String reviewBody, String imdbId) {
-        Seat s = repository.insert(new Seat(reviewBody, LocalDateTime.now(), LocalDateTime.now()));
+        Seat s = repository.insert(new Seat(reviewBody, LocalDateTime.now(), LocalDateTime.now(),"normalSeat",50000.0,"seat"));
 
         mongoTemplate.update(Movie.class)
                 .matching(Criteria.where("imdbId").is(imdbId))

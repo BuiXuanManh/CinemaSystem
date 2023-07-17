@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 @RestController
-@RequestMapping("/api/v1/seats")
+@RequestMapping("/api/v1/views/seats")
 public class SeatController {
     @Autowired
     private SeatService service;

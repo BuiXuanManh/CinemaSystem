@@ -8,6 +8,7 @@ import Header from './components/header/Header';
 import Trailer from './components/trailer/Trailer';
 import Views from './components/views/Views';
 import NotFound from './components/notFound/NotFound';
+import SeatForm from './components/seatForm/SeatForm';
 
 function App() {
 
@@ -63,6 +64,7 @@ function App() {
             <Route path="/" element={<Home movies={movies} />} ></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
             <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
+            <Route path='/views/seats/:moviedId' element={<SeatForm movie={movie} />}/>
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>

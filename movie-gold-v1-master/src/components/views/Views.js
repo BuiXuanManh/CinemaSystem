@@ -1,14 +1,20 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef} from 'react';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col,Form,Button } from 'react-bootstrap';
 import ViewForm from '../viewform/ViewForm';
+import { Link, useNavigate } from "react-router-dom";
 
-import SeatForm from '../seatForm/SeatForm';
+
 
 import React from 'react'
 
 const Views = ({ getMovieData, movie, reviews, setReviews }) => {
+    const navigate = useNavigate();
+
+    function seats(movieId) {
+        navigate(`/views/seats/${movieId}`);
+    }
 
     const revText = useRef();
     const seatText= useRef();
@@ -36,28 +42,28 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
             console.error(err);
         }
     }
-    const choseSeat = async (e) => {
-        e.preventDefault();
+    // const choseSeat = async (e) => {
+    //     e.preventDefault();
 
-        const s = seatText.current;
+    //     const s = seatText.current;
 
-        try {
-            const response = await api.post("/api/v1/seats", { seatBody: s.value, imdbId: movieId });
+    //     try {
+    //         const response = await api.post("/api/v1/seats", { seatBody: s.value, imdbId: movieId });
 
-            const updatedSeats = [...seats, { body: s.value }];
+    //         const updatedSeats = [...seats, { body: s.value }];
 
-            rev.value = "";
+    //         rev.value = "";
 
-            setReviews(updatedSeats);
-        }
-        catch (err) {
-            console.error(err);
-        }
-
-
+    //         setReviews(updatedSeats);
+    //     }
+    //     catch (err) {
+    //         console.error(err);
+    //     }
 
 
-    }
+
+
+    // }
 
     return (
         <Container>
@@ -76,11 +82,11 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                                 <Col className='col-md-5'>
                                     <label>Thể loại</label>
                                 </Col>
-                                <Col className='col-md-5 d-flex align-items-center justify-content-center'>
+                                <Col className='col-md-6 d-flex align-items-center justify-content-center'>
                                     {movie?.genres.map((r) => {
                             return (
                                 <>
-                                        <Col className='ml-2'>{r}</Col>
+                                        <Col className='ml-3'>{r}</Col>
                                 </>
                             )
                         })}
@@ -143,7 +149,12 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                                     <hr />
                                 </Col>
                             </Row>
-                            <SeatForm />
+                            <Row className='mt-2'>
+                                <Col>
+                                <Button onClick={()=>seats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
+                                </Col>
+                            </Row>
+                            
                             <Row className='mt-3'>
                                 <Col>
                                     <hr />
