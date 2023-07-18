@@ -14,7 +14,11 @@
 	<name>movieist</name>
 	<description>yet another IMDB clone</description>
 	<properties>
+<<<<<<< HEAD
 		<java.version>20</java.version>
+=======
+		<java.version>17</java.version>
+>>>>>>> manh
 	</properties>
 	<dependencies>
 		<dependency>

@@ -6,8 +6,14 @@ import {Routes, Route} from 'react-router-dom';
 import Home from './components/home/Home';
 import Header from './components/header/Header';
 import Trailer from './components/trailer/Trailer';
+<<<<<<< HEAD
 import Reviews from './components/reviews/Reviews';
 import NotFound from './components/notFound/NotFound';
+=======
+import Views from './components/views/Views';
+import NotFound from './components/notFound/NotFound';
+import SeatForm from './components/seatForm/SeatForm';
+>>>>>>> manh
 
 function App() {
 
@@ -40,7 +46,10 @@ function App() {
         const singleMovie = response.data;
 
         setMovie(singleMovie);
+<<<<<<< HEAD
 
+=======
+>>>>>>> manh
         setReviews(singleMovie.reviews);
         
 
@@ -63,7 +72,12 @@ function App() {
           <Route path="/" element={<Layout/>}>
             <Route path="/" element={<Home movies={movies} />} ></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
+<<<<<<< HEAD
             <Route path="/Reviews/:movieId" element ={<Reviews getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
+=======
+            <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
+            <Route path='/views/seats/:moviedId' element={<SeatForm movie={movie} />}/>
+>>>>>>> manh
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>

@@ -36,6 +36,15 @@
     display: flex;
     align-items: center;
 }
+<<<<<<< HEAD
+=======
+.movie-t2{
+    color:black;
+    font-weight: bold;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+>>>>>>> manh
 
 .movie-buttons-container{
     display:flex;
@@ -61,6 +70,14 @@
     font-size: 4rem;
     color:white;
 }
+<<<<<<< HEAD
+=======
+.btnReview{
+    width:300px;
+    justify-content: space-between;
+}
+
+>>>>>>> manh
 
 @media only screen and (max-width: 800px) {
     .movie-detail{
