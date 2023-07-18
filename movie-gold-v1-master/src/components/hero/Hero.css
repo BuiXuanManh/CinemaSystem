@@ -1,5 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+  }
 .movie-carousel-container{
-    width: 100vw;
+    width: 100%;
     background-color: black;
 }
 .movie-poster{
@@ -7,6 +11,7 @@
     border: 1px solid gold;
     border-radius: 10px;
     overflow: hidden;
+    margin: 0;
 }
 .movie-poster > img{
     height: 100%;
@@ -47,7 +52,7 @@
     display:flex;
     justify-content: space-between;
     align-items: center;
-    width:300px;
+    width:0%;
 }
 
 .play-button-icon-container{
@@ -68,8 +73,8 @@
     color:white;
 }
 .btnReview{
-    width:300px;
-    justify-content: space-between;
+    width:0%;
+    justify-content: center;
 }
 
 

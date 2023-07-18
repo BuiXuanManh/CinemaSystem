@@ -15,6 +15,7 @@ function App() {
   const [movies, setMovies] = useState();
   const [movie, setMovie] = useState();
   const [reviews, setReviews] = useState([]);
+  const [seats, setSeats] = useState([]);
 
   const getMovies = async () =>{
     
@@ -42,6 +43,7 @@ function App() {
 
         setMovie(singleMovie);
         setReviews(singleMovie.reviews);
+        setSeats(singleMovie.seats)
         
 
     } 
@@ -63,8 +65,8 @@ function App() {
           <Route path="/" element={<Layout/>}>
             <Route path="/" element={<Home movies={movies} />} ></Route>
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
-            <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews} />}></Route>
-            <Route path='/views/seats/:moviedId' element={<SeatForm movie={movie} />}/>
+            <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} reviews ={reviews} setReviews = {setReviews}/>}></Route>
+            <Route path='/views/seats/:movieId' element={<SeatForm getMovieData = {getMovieData} movie={movie}  seats={seats} setSeats={setSeats}  />}/>
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>

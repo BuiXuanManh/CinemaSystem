@@ -20,4 +20,7 @@ public class MovieService {
     public Optional<Movie> findMovieByImdbId(String imdbId) {
         return repository.findMovieByImdbId(imdbId);
     }
+    public Movie save(Movie movie){
+        return repository.save(movie);
+    }
 }

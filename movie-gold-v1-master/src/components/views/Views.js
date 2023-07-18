@@ -9,8 +9,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 import React from 'react'
 
-const Views = ({ getMovieData, movie, reviews, setReviews }) => {
+const Views = ({ getMovieData, movie, reviews, setReviews, seats }) => {
     const navigate = useNavigate();
+  
+
 
     function seats(movieId) {
         navigate(`/views/seats/${movieId}`);
