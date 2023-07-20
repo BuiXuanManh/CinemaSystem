@@ -11,10 +11,8 @@ import java.time.LocalDateTime;
 
 @Document(collection = "seats")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Seat {
-    @Id
     private ObjectId id;
     private String seatName;
     private LocalDateTime created;

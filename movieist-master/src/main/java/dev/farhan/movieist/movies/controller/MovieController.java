@@ -1,6 +1,7 @@
 package dev.farhan.movieist.movies.controller;
 
 import dev.farhan.movieist.movies.model.Movie;
+import dev.farhan.movieist.movies.model.Seat;
 import dev.farhan.movieist.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,5 +26,10 @@ public class MovieController {
     @GetMapping("/{imdbId}")
     public ResponseEntity<Optional<Movie>> getSingleMovie(@PathVariable String imdbId){
         return new ResponseEntity<Optional<Movie>>(service.findMovieByImdbId(imdbId), HttpStatus.OK);
+    }
+    @PostMapping("/{imdbId}")
+    public ResponseEntity<List<Seat>> updateSeats(@RequestBody List<Seat> updatedSeats,@PathVariable String imdbId) {
+        List<Seat> updatedSeatList = service.updateSeats( updatedSeats,imdbId);
+        return new ResponseEntity<>(updatedSeatList, HttpStatus.OK);
     }
 }

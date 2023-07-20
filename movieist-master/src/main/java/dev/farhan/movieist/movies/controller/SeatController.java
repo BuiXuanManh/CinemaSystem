@@ -27,55 +27,5 @@ public class SeatController {
     public ResponseEntity<Seat> createReview(@RequestBody Map<String, String> payload) {
         return new ResponseEntity<Seat>(service.createSeat(payload.get("style"),payload.get("status"),payload.get("seatName"), payload.get("imdbId")), HttpStatus.OK);
     }
-    @PostMapping("/{imdbId}/{seatName}")
-    public ResponseEntity<Seat> updateSeat(@PathVariable("imdbId") String imdbId, @PathVariable("seatName") String seatName) {
-        Optional<Movie> movieOptional = movieService.findMovieByImdbId(imdbId);
-
-        if (movieOptional.isPresent()) {
-            Movie movie = movieOptional.get();
-            List<Seat> seats = movie.getSeats();
-
-            // Tìm kiếm seat theo seatName
-            Optional<Seat> seatOptional = seats.stream()
-                    .filter(seat -> seat.getSeatName().equals(seatName))
-                    .findFirst();
-
-            if (seatOptional.isPresent()) {
-                Seat seat = seatOptional.get();
-
-                seat.setStatus("OrderedSeat");
-                movieService.save(movie);
-
-                return new ResponseEntity<>(seat, HttpStatus.OK);
-            }
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    @PostMapping("/{imdbId}/{seatName}/cancel")
-    public ResponseEntity<Seat> cancelSeat(@PathVariable("imdbId") String imdbId, @PathVariable("seatName") String seatName) {
-        Optional<Movie> movieOptional = movieService.findMovieByImdbId(imdbId);
-
-        if (movieOptional.isPresent()) {
-            Movie movie = movieOptional.get();
-            List<Seat> seats = movie.getSeats();
-
-            // Tìm kiếm seat theo seatName
-            Optional<Seat> seatOptional = seats.stream()
-                    .filter(seat -> seat.getSeatName().equals(seatName))
-                    .findFirst();
-
-            if (seatOptional.isPresent()) {
-                Seat seat = seatOptional.get();
-
-                seat.setStatus("Seat");
-                movieService.save(movie);
-
-                return new ResponseEntity<>(seat, HttpStatus.OK);
-            }
-        }
-
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
 }
 

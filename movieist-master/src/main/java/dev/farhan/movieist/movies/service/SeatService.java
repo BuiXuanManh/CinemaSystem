@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,7 +40,7 @@ public class SeatService {
 
         return s;
     }
-    public Optional<Seat> findMovieBySeatName(String seatName) {
-        return repository.findMovieBySeatName(seatName);
-    }
+//    public Optional<Seat> findMovieBySeatName(String seatName) {
+//        return repository.findMovieBySeatName(seatName);
+//    }
 }

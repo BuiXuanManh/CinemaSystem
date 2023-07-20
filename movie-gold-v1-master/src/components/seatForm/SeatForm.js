@@ -2,19 +2,33 @@ import './SeatForm.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../../api/axiosConfig';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
 
-const SeatForm = ({ getMovieData, movie, seats, setSeats }) => {
-  const OrderedName = useRef(null);
   const OrderedSeat = useRef(null);
   const [tongGia, setTongGia] = useState(0);
   const params = useParams();
   const movieId = params.movieId;
-
+  const navigate = useNavigate();
+  const updateSeats = async (updatedSeats) => {
+    try {
+      const response = await api.post(`/api/v1/movies/${movieId}`, updatedSeats);
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  function pay(movieId) {
+    setTotalPrice(tongGia);
+    console.log(seats); 
+    updateSeats(seats);
+    setSeats(seats);
+    navigate(`/views/seats/${movieId}/pay`);
+  }
   useEffect(() => {
     getMovieData(movieId);
   }, []);
-  console.log(seats)
+  // console.log(seats)
   const updateStatusSeat = async (seatName, xo) => {
     try {
       if (xo === "" || xo == null) {
@@ -30,9 +44,9 @@ const SeatForm = ({ getMovieData, movie, seats, setSeats }) => {
         setSeats(prevSeats => {
           return prevSeats.map(seat => {
             if (seat?.seatName === seatName) {
-              
-                return { ...seat, status: "Seat" };
-              
+
+              return { ...seat, status: "Seat" };
+
             }
             return seat;
           });
@@ -58,7 +72,7 @@ const SeatForm = ({ getMovieData, movie, seats, setSeats }) => {
       updateStatusSeat(OrderedSeat.current?.seatName, xo);
     } else {
       updateStatusSeat(OrderedSeat.current?.seatName, xo);
-      
+
     }
   };
 
@@ -195,10 +209,10 @@ const SeatForm = ({ getMovieData, movie, seats, setSeats }) => {
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
-        <Col className="col-md-9">
-          <Button className="btn btn-success mt-3" style={{ width: "100%" }}>
-            Thanh toán
-          </Button>
+        <Col className='col-md-9'>
+            <Button className="btn btn-success mt-3" onClick={() => pay(movieId)} style={{ width: '100%' }}>
+              Thanh toán
+            </Button>
         </Col>
       </Row>
       <Row className="mt-3">
