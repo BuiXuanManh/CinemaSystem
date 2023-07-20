@@ -5,23 +5,34 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import'./Header.css';
+import { colors } from "@mui/material";
 
 const Header = () => {
+  const [userData, setUserData] = useState({
+    userid: "",
+    refreshToken: "",
+    accessToken: "",
+  });
+  const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [registerData, setRegisterData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [loginData, setLoginData] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -55,54 +66,97 @@ const Header = () => {
       return;
     }
 
-    const registerEndpoint = "http://localhost:8081/api/auth/signup"; 
-    axios.post(registerEndpoint, registerData)
-      .then(response => {
-        alert("Registration successful");
+    const registerEndpoint = "http://localhost:8081/api/auth/signup";
+    axios
+      .post(registerEndpoint, registerData)
+      .then((response) => {
+        setPasswordMismatch(false);
         closeRegisterModal();
       })
-      .catch(error => {
-        alert("Registration failed!! User name already exists");
+      .catch((error) => {
+        setPasswordMismatch(true);
         console.error(error);
       });
   };
 
-  const loginEndpoint = "http://localhost:8081/api/auth/login"; 
+  const loginEndpoint = "http://localhost:8081/api/auth/login";
   const handleLogin = () => {
-    axios.post(loginEndpoint, loginData)
-      .then(response => {
-        console.log(response.data);
-        alert("Login successful");
+    axios
+      .post(loginEndpoint, loginData)
+      .then((response) => {
         closeLoginModal();
+        alert("Login successful");
+        setIsLoggedIn(true);
+        setUsername(loginData.username);
+        setUserData({userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken});
+        
       })
-      .catch(error => {
+      .catch((error) => {
         alert("Login failed. Invalid username or password");
         console.error(error);
       });
   };
 
+  const handleLogout = () => {
+    const logoutEndpoint = "http://localhost:8081/api/auth/logout"; 
+    const refreshToken = localStorage.getItem("refreshToken");
+    
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    console.log("day nè "+userData.refreshToken);
+  
+    axios
+      .post(logoutEndpoint, userData, config)
+      .then((response) => {
+        setIsLoggedIn(false);
+        setUsername("");
+        alert("Logout successful");
+      
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
+      
+  };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/" style={{ color: 'gold' }}>
+        <Navbar.Brand href="/" style={{ color: "gold" }}>
           <FontAwesomeIcon icon={faVideoSlash} />Gold
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <NavLink className="nav-link" to="/">Home</NavLink>
-            <NavLink className="nav-link" to="/watchList">Watch List</NavLink>
+          <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: "100px" }} navbarScroll>
+            <NavLink className="nav-link" to="/">
+              Home
+            </NavLink>
+            <NavLink className="nav-link" to="/watchList">
+              Watch List
+            </NavLink>
           </Nav>
-          <Button variant="outline-info" className="me-2" onClick={openLoginModal}>Login</Button>
-          <Button variant="outline-info" onClick={openRegisterModal}>Register</Button>
+          {isLoggedIn ? ( 
+            <Nav>
+              <NavDropdown title={username} id="basic-nav-dropdown">
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          ) : ( 
+            <Nav>
+              <Button variant="outline-info" className="me-2" onClick={openLoginModal}>
+                Login
+              </Button>
+              <Button variant="outline-info" onClick={openRegisterModal}>
+                Register
+              </Button>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
       <Modal show={showRegisterModal} onHide={closeRegisterModal}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Register</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -150,19 +204,20 @@ const Header = () => {
               onChange={handleRegisterInputChange}
             />
           </div>
+          {passwordMismatch && <label className="text-danger">Passwords do not match</label>}
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeRegisterModal}>
+        <Modal.Footer id="RFooter">
+          <Button variant="danger" onClick={closeRegisterModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleRegister}>
+          <Button variant="success" onClick={handleRegister}>
             Register
           </Button>
         </Modal.Footer>
       </Modal>
       <Modal show={showLoginModal} onHide={closeLoginModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
+        <Modal.Header>
+          <Modal.Title  id="titleLogin">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
@@ -188,11 +243,11 @@ const Header = () => {
             />
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={closeLoginModal}>
+        <Modal.Footer id="LFooter">
+          <Button variant="danger" onClick={closeLoginModal}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleLogin}>
+          <Button variant="success" onClick={handleLogin}>
             Login
           </Button>
         </Modal.Footer>
