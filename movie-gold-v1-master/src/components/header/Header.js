@@ -71,6 +71,7 @@ const Header = () => {
       .post(registerEndpoint, registerData)
       .then((response) => {
         setPasswordMismatch(false);
+        alert("successful");
         closeRegisterModal();
       })
       .catch((error) => {
