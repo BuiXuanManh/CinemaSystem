@@ -2,6 +2,7 @@ package dev.farhan.movieist.movies.service;
 
 import dev.farhan.movieist.movies.model.Movie;
 import dev.farhan.movieist.movies.model.Seat;
+import dev.farhan.movieist.movies.model.User;
 import dev.farhan.movieist.movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -29,21 +30,17 @@ public class MovieService {
         return repository.save(movie);
     }
 
-    public List<Seat> updateSeats( List<Seat> updatedSeats,String imdbId) {
+    public Movie updateSeats(List<Seat> updatedSeats, String imdbId) {
         // Lấy thông tin phim từ cơ sở dữ liệu
-        Optional<Movie> movieOptional = repository.findMovieByImdbId(imdbId);
-        if (movieOptional.isEmpty()||updatedSeats.isEmpty()) {
-            return null;
-        }
+        Optional<Movie> u = repository.findMovieByImdbId(imdbId);
 
         // Lấy đối tượng Movie từ Optional và cập nhật danh sách ghế
-        Movie movie = movieOptional.get();
-        movie.setSeats(updatedSeats);
+        Movie user = u.get();
+        user.setSeats(updatedSeats);
 
         // Lưu lại thông tin phim đã cập nhật
-        Movie updatedMovie = repository.save(movie);
+        Movie updatedMovie = repository.save(user);
 
-        return updatedMovie.getSeats();
+        return updatedMovie;
     }
-
 }

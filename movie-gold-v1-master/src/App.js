@@ -82,8 +82,7 @@ function App() {
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
             <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} setMovie={setMovie} reviews ={reviews} setReviews = {setReviews} setSaveMovies={setSaveMovies}/>}></Route>
             <Route path='/views/seats/:movieId' element={<SeatForm setTotalPrice={setTotalPrice} getMovieData = {getMovieData}  seats={seats} setSeats={setSeats}  />}/>
-            <Route path='/pay/:movieId' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
-            <Route path='/pay/:movieId/payment-complete' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
+            <Route path='/pay/:movieId' element={<Pay totalPrice={totalPrice} seats={seats} loginData={loginData} />}/>
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>

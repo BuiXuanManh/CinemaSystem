@@ -1,17 +1,22 @@
 import React,{useRef} from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate,useParams } from 'react-router-dom';
+import api from '../../api/axiosConfig';
 
-const Pay = ({  totalPrice, seats, setSeats }) => {
+const Pay = ({  totalPrice, seats, loginData }) => {
   const navigate = useNavigate();
   const OrderedSeat = useRef(null);
   let params = useParams();
   const movieId = params.movieId;
-  // Thêm hàm xử lý khi người dùng bấm nút thanh toán
+  api
+                  .post(`/api/v1/movies/${movieId}`,seats)
+                  .then((response) => {;
+                    alert("successful");
+                  })
   const handlePayment = () => {
-    // Xử lý logic thanh toán ở đây, ví dụ gửi yêu cầu thanh toán đến server, cập nhật trạng thái ghế đã đặt, v.v.
-    // Sau khi xử lý thành công, có thể chuyển hướng người dùng đến trang hoàn tất thanh toán
-    navigate(`/pay/${movieId}/payment-complete`);
+    {console.log(seats)}
+    alert("thanh toan thanh cong");
+    navigate(`/views/seats/${movieId}`)
   };
 
   return (
@@ -32,6 +37,7 @@ const Pay = ({  totalPrice, seats, setSeats }) => {
           seat.status === 'OrderedSeat' && (
             <>
                 <Col>{seat?.seatName}</Col>
+
               <Row>
                 <Col>
                   <hr />

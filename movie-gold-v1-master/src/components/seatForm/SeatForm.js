@@ -12,8 +12,12 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
   const navigate = useNavigate();
   const updateSeats = async (updatedSeats) => {
     try {
-      const response = await api.post(`/api/v1/movies/${movieId}`, updatedSeats);
-      console.log(response.data)
+      console.log(seats)
+      api
+                  .post(`/api/v1/movies/${movieId}`,seats)
+                  .then((response) => {;
+                    alert("successful");
+                  })
     } catch (error) {
       console.error(error);
     }
@@ -23,6 +27,7 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
     console.log(seats); 
     updateSeats(seats);
     setSeats(seats);
+    
     navigate(`/pay/${movieId}`);
   }
   useEffect(() => {

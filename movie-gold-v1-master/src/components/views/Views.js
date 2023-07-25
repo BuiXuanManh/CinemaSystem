@@ -12,7 +12,7 @@ import React from 'react'
 const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
     const navigate = useNavigate();
 
-    function seats(movieId) {
+    function naseats(movieId) {
         setMovie(movie);
         navigate(`/views/seats/${movieId}`);
     }
@@ -128,7 +128,7 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
-                                <Button onClick={()=>seats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
+                                <Button onClick={()=>naseats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
                                 </Col>
                             </Row>
                             <Row className='mt-2'>
