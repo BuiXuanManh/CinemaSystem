@@ -11,7 +11,7 @@ const Pay = ({  totalPrice, seats, setSeats }) => {
   const handlePayment = () => {
     // Xử lý logic thanh toán ở đây, ví dụ gửi yêu cầu thanh toán đến server, cập nhật trạng thái ghế đã đặt, v.v.
     // Sau khi xử lý thành công, có thể chuyển hướng người dùng đến trang hoàn tất thanh toán
-    navigate(`/views/seats/${movieId}/payment-complete`);
+    navigate(`/pay/${movieId}/payment-complete`);
   };
 
   return (

@@ -23,7 +23,7 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
     console.log(seats); 
     updateSeats(seats);
     setSeats(seats);
-    navigate(`/views/seats/${movieId}/pay`);
+    navigate(`/pay/${movieId}`);
   }
   useEffect(() => {
     getMovieData(movieId);

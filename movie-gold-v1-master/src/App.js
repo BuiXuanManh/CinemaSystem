@@ -20,6 +20,16 @@ function App() {
   const [reviews, setReviews] = useState(['']);
   const [seats, setSeats] = useState([]);
   const [totalPrice, setTotalPrice] = useState([]);
+  const [registerData, setRegisterData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: "",
+  });
 
   const getMovies = async () =>{
     
@@ -64,7 +74,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header/>
+      <Header registerData={registerData} setRegisterData={setRegisterData} loginData={loginData} setLoginData={setLoginData} />
       <Routes>
           <Route path="/" element={<Layout/>}>
             <Route path="/" element={<Home movies={movies} />} ></Route>
@@ -72,8 +82,8 @@ function App() {
             <Route path="/Trailer/:ytTrailerId" element={<Trailer/>}></Route>
             <Route path="/views/:movieId" element ={<Views getMovieData = {getMovieData} movie={movie} setMovie={setMovie} reviews ={reviews} setReviews = {setReviews} setSaveMovies={setSaveMovies}/>}></Route>
             <Route path='/views/seats/:movieId' element={<SeatForm setTotalPrice={setTotalPrice} getMovieData = {getMovieData}  seats={seats} setSeats={setSeats}  />}/>
-            <Route path='/views/seats/:movieId/pay' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
-            <Route path='/views/seats/:movieId/payment-complete' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
+            <Route path='/pay/:movieId' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
+            <Route path='/pay/:movieId/payment-complete' element={<Pay totalPrice={totalPrice} seats={seats} setSeats={setSeats}  />}/>
             <Route path="*" element = {<NotFound/>}></Route>
           </Route>
       </Routes>
