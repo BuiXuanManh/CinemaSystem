@@ -1,62 +1,117 @@
-/**
- * Sửa code trên để mặc định ghế số D4-D7 là khóa (không thể chọn, màu xám).
- * Thêm chú thích vào đoạn dưới:
- * - Ghế khóa (không thể chọn, mặc định là ghế từ D4-D7, màu xám)
- * - Ghế VIP (có thể chọn, mặc định là ghế từ C3-C8, màu đỏ nhạt)
- * 
- * @function 
- * @name sửaCode
- *
- * @param {object} movie - Thông tin về phim.
- *
- * @returns {JSX.Element} Giao diện đặt chỗ với ghế mặc định D4-D7 là khóa và ghế VIP từ C3-C8.
- */
-import './SeatForm.css'
-import React, { useState, useEffect } from 'react';
+import './SeatForm.css';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import api from '../../api/axiosConfig';
+import { useParams, useNavigate } from 'react-router-dom';
+const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
 
-const SeatForm = (movie) => {
-  const [danhSachGhe, setDanhSachGhe] = useState([]);
+  const OrderedSeat = useRef(null);
   const [tongGia, setTongGia] = useState(0);
+  const params = useParams();
+  const movieId = params.movieId;
+  const navigate = useNavigate();
+  const updateSeats = async (updatedSeats) => {
+    try {
+      console.log(seats)
+      api
+                  .post(`/api/v1/movies/${movieId}`,seats)
+                  .then((response) => {;
+                    alert("successful");
+                  })
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  function pay(movieId) {
+    setTotalPrice(tongGia);
+    console.log(seats); 
+    updateSeats(seats);
+    setSeats(seats);
+    
+    navigate(`/pay/${movieId}`);
+  }
+  useEffect(() => {
+    getMovieData(movieId);
+  }, []);
+  // console.log(seats)
+  const updateStatusSeat = async (seatName, xo) => {
+    try {
+      if (xo === "" || xo == null) {
+        setSeats(prevSeats => {
+          return prevSeats.map(seat => {
+            if (seat?.seatName === seatName) {
+              return { ...seat, status: "OrderedSeat" };
+            }
+            return seat;
+          });
+        });
+      } else if (xo === "/cancel") {
+        setSeats(prevSeats => {
+          return prevSeats.map(seat => {
+            if (seat?.seatName === seatName) {
+
+              return { ...seat, status: "Seat" };
+
+            }
+            return seat;
+          });
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const datCho = (hang, cot) => {
     const gheId = `${String.fromCharCode(65 + hang - 1)}${cot}`;
-    const gheDaDat = danhSachGhe.find(ghe => ghe.id === gheId);
-  
-    if (gheDaDat) {
-      // Nếu ghế đã được chọn, bỏ khỏi danh sách
-      const danhSachGheMoi = danhSachGhe.filter(ghe => ghe.id !== gheId);
-      setDanhSachGhe(danhSachGheMoi);
+    seats?.map(seat => {
+      if (seat?.seatName === gheId) {
+        OrderedSeat.current = seat;
+      }
+      return seat;
+    });
+
+    let xo = "";
+    if (OrderedSeat.current?.status === "OrderedSeat") {
+      xo = "/cancel";
+      updateStatusSeat(OrderedSeat.current?.seatName, xo);
     } else {
-      // Nếu ghế chưa được chọn, thêm vào danh sách
-      const gheMoi = { id: gheId, daDat: true };
-      setDanhSachGhe([...danhSachGhe, gheMoi]);
+      updateStatusSeat(OrderedSeat.current?.seatName, xo);
+
     }
   };
+
   useEffect(() => {
     tinhTongGia();
-  }, [danhSachGhe]);
+  }, [seats]);
+
   const tinhTongGia = () => {
     let tongGiaMoi = 0;
-
-    danhSachGhe.forEach(ghe => {
-      if( ghe.daDat = true){
-      if (ghe.id === 'C3' || ghe.id === 'C4' || ghe.id === 'C5' || ghe.id === 'C6' || ghe.id === 'C7' || ghe.id === 'C8') {
-        tongGiaMoi += 60000;
-      } else {
-        tongGiaMoi += 50000;
-      }}
-    });
+    seats?.map(seat => {
+      if (seat.status === 'OrderedSeat') {
+        if (
+          seat.style === 'vipSeat'
+        ) {
+          tongGiaMoi += 60000;
+        } else {
+          tongGiaMoi += 50000;
+        }
+      }
+    })
 
     setTongGia(tongGiaMoi);
   };
 
   const huyCho = (hang, cot) => {
     const gheId = `${String.fromCharCode(65 + hang - 1)}${cot}`;
-    const gheDaDat = danhSachGhe.find(ghe => ghe.id === gheId);
-    if (gheDaDat) {
-      gheDaDat.daDat = false;
-      setDanhSachGhe([...danhSachGhe]);
+    seats?.map(seat => {
+      if (seat?.seatName === gheId) {
+        OrderedSeat.current = seat;
+      }
+      return seat;
+    });
+    if (OrderedSeat.current?.seatName) {
+      updateStatusSeat(OrderedSeat.current?.seatName, "/cancel");
     }
   };
 
@@ -79,21 +134,35 @@ const SeatForm = (movie) => {
       const cotJSX = [];
       for (let cot = 1; cot <= soCot; cot++) {
         const gheId = `${hangChuCai}${cot}`;
-        const gheDaDat = danhSachGhe.find(ghe => ghe.id === gheId);
+        const s = seats?.map(seat => {
+          if (seat?.seatName === gheId) {
+            OrderedSeat.current = seat;
+          }
+          return seat;
+        });
         let gheClassName = 'seat';
         let gheVariant = 'light';
-        if (gheDaDat) {
+        if (OrderedSeat.current) {
           gheClassName = 'orderedSeat';
-          gheVariant = gheDaDat.daDat ? 'success' : 'light';
+          gheVariant = OrderedSeat.current.status === 'OrderedSeat' ? 'success' : 'light';
         }
         if (gheId === 'D4' || gheId === 'D5' || gheId === 'D6' || gheId === 'D7') {
           gheClassName += ' lockedSeat';
           gheVariant = 'secondary';
         }
-        if (gheId === 'C3' || gheId === 'C4' || gheId === 'C5' || gheId === 'C6' || gheId === 'C7' || gheId === 'C8') {
+        if (
+          gheId === 'C3' ||
+          gheId === 'C4' ||
+          gheId === 'C5' ||
+          gheId === 'C6' ||
+          gheId === 'C7' ||
+          gheId === 'C8' ||
+          gheId === 'D3' ||
+          gheId === 'D8'
+        ) {
           gheClassName += ' vipSeat';
           gheVariant = 'danger';
-          if (gheDaDat && gheDaDat.daDat) {
+          if (OrderedSeat.current && OrderedSeat.current.status === 'OrderedSeat') {
             gheVariant = 'success';
           }
         }
@@ -132,49 +201,49 @@ const SeatForm = (movie) => {
 
   return (
     <Container className="giao-dien-dat-cho">
-      <Row className='justify-content-center mt-3 mb-3'>
+      <Row className="justify-content-center mt-3 mb-3">
         <Col>
-          <h2 className='text-center mt-3'>SEATS ORDER</h2>
+          <h2 className="text-center mt-3">SEATS ORDER</h2>
         </Col>
       </Row>
 
       {renderGhe()}
-      <Row className='justify-content-center mt-3'>
+      <Row className="justify-content-center mt-3">
         <Col>
           <hr></hr>
         </Col>
       </Row>
-      <Row className='justify-content-center mt-3'>
+      <Row className="justify-content-center mt-3">
         <Col className='col-md-9'>
-          <Button className='btn btn-success mt-3' style={{ width: "100%" }}>Thanh toán</Button>
+            <Button className="btn btn-success mt-3" onClick={() => pay(movieId)} style={{ width: '100%' }}>
+              Thanh toán
+            </Button>
         </Col>
       </Row>
-      <Row className='mt-3'>
-        <Button className='col-md-1' variant='light' disabled />
+      <Row className="mt-3">
+        <Button className="col-md-1" variant="light" disabled />
         <span className="col-md-3 ml-1">Ghế trống</span>
         <span className="col-md-1 ml-1">Giá:</span>
         <span className="col-md-1">50000</span>
       </Row>
-      <Row className='mt-3'>
-        <Button className='col-md-1' variant='success' disabled />
+      <Row className="mt-3">
+        <Button className="col-md-1" variant="success" disabled />
         <span className="col-md-3 ml-1">Ghế chọn</span>
         <span className="col-md-1 ml-1">Tổng giá:</span>
         <span className="col-md-1">{tongGia}</span>
-        {console.log(tongGia)}
       </Row>
-      <Row className='mt-3'>
-        <Button className='col-md-1' variant='danger' disabled />
+      <Row className="mt-3">
+        <Button className="col-md-1" variant="danger" disabled />
         <span className="col-md-3 ml-1">Ghế VIP</span>
         <span className="col-md-1 ml-1">Giá:</span>
         <span className="col-md-1">60000</span>
       </Row>
-      <Row className='mt-3'>
-        <Button className='col-md-1' variant='secondary' disabled />
+      <Row className="mt-3">
+        <Button className="col-md-1" variant="secondary" disabled />
         <span className="col-md-3 ml-1">Ghế đã khóa</span>
       </Row>
-
     </Container>
   );
-}
+};
 
 export default SeatForm;

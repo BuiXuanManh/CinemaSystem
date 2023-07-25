@@ -10,9 +10,10 @@ import { NavLink } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import'./Header.css';
-import { colors } from "@mui/material";
+import api from '../../api/axiosConfig';
+import {message} from "antd";
 
-const Header = () => {
+const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
   const [userData, setUserData] = useState({
     userid: "",
     refreshToken: "",
@@ -21,16 +22,7 @@ const Header = () => {
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [registerData, setRegisterData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [loginData, setLoginData] = useState({
-    username: "",
-    password: "",
-  });
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
@@ -66,40 +58,44 @@ const Header = () => {
       return;
     }
 
-    const registerEndpoint = "http://localhost:8081/api/auth/signup";
-    axios
-      .post(registerEndpoint, registerData)
+    api
+      .post("/api/auth/signup", registerData)
       .then((response) => {
         setPasswordMismatch(false);
-        alert("successful");
+        setTimeout(() => {
+          message.success("Register success", 2)
+        }, 0);
         closeRegisterModal();
       })
       .catch((error) => {
         setPasswordMismatch(true);
-        console.error(error);
+        setTimeout(() => {
+          message.error("Register failed", 2)
+        }, 0);
       });
   };
 
-  const loginEndpoint = "http://localhost:8081/api/auth/login";
   const handleLogin = () => {
-    axios
-      .post(loginEndpoint, loginData)
+    api
+      .post("/api/auth/login", loginData)
       .then((response) => {
         closeLoginModal();
-        alert("Login successful");
+        setTimeout(() => {
+          message.success("Login success", 2)
+        }, 0);
         setIsLoggedIn(true);
         setUsername(loginData.username);
         setUserData({userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken});
         
       })
       .catch((error) => {
-        alert("Login failed. Invalid username or password");
-        console.error(error);
+        setTimeout(() => {
+          message.error("Login failed!!", 2)
+        }, 0);
       });
   };
 
   const handleLogout = () => {
-    const logoutEndpoint = "http://localhost:8081/api/auth/logout"; 
     const refreshToken = localStorage.getItem("refreshToken");
     
     const config = {
@@ -107,18 +103,21 @@ const Header = () => {
         "Content-Type": "application/json",
       },
     };
-    console.log("day nè "+userData.refreshToken);
-  
-    axios
-      .post(logoutEndpoint, userData, config)
+
+    api
+      .post("/api/auth/logout", userData, config)
       .then((response) => {
         setIsLoggedIn(false);
         setUsername("");
-        alert("Logout successful");
+        setTimeout(() => {
+          message.success("Logout success", 2)
+        }, 0);
       
       })
       .catch((error) => {
-        console.error("Error logging out:", error);
+        setTimeout(() => {
+          message.error("Logout failed", 2)
+        }, 0);
       });
       
   };

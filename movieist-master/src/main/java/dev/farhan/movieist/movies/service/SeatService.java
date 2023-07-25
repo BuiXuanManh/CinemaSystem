@@ -12,6 +12,10 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class SeatService {
     @Autowired
@@ -20,8 +24,14 @@ public class SeatService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Seat createReview(String reviewBody, String imdbId) {
-        Seat s = repository.insert(new Seat(reviewBody, LocalDateTime.now(), LocalDateTime.now(),"normalSeat",50000.0,"seat"));
+    public Seat createSeat(String seatStyle,String seatStatus ,String seatName, String imdbId) {
+        Double g=0.0;
+        if(seatStyle!=null){
+        if(seatStyle.equalsIgnoreCase("normalSeat"))
+            g=50000.0;
+        else if (seatStyle.equalsIgnoreCase("vipSeat"))
+            g=60000.0;}
+        Seat s = repository.insert(new Seat(seatName, LocalDateTime.now(), LocalDateTime.now(),seatStyle,g,seatStatus));
 
         mongoTemplate.update(Movie.class)
                 .matching(Criteria.where("imdbId").is(imdbId))
@@ -30,4 +40,7 @@ public class SeatService {
 
         return s;
     }
+//    public Optional<Seat> findMovieBySeatName(String seatName) {
+//        return repository.findMovieBySeatName(seatName);
+//    }
 }

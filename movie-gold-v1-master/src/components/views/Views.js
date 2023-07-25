@@ -9,12 +9,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 import React from 'react'
 
-const Views = ({ getMovieData, movie, reviews, setReviews }) => {
+const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
     const navigate = useNavigate();
 
-    function seats(movieId) {
+    function naseats(movieId) {
+        setMovie(movie);
         navigate(`/views/seats/${movieId}`);
     }
+    
 
     const revText = useRef();
     const seatText= useRef();
@@ -42,29 +44,6 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
             console.error(err);
         }
     }
-    // const choseSeat = async (e) => {
-    //     e.preventDefault();
-
-    //     const s = seatText.current;
-
-    //     try {
-    //         const response = await api.post("/api/v1/seats", { seatBody: s.value, imdbId: movieId });
-
-    //         const updatedSeats = [...seats, { body: s.value }];
-
-    //         rev.value = "";
-
-    //         setReviews(updatedSeats);
-    //     }
-    //     catch (err) {
-    //         console.error(err);
-    //     }
-
-
-
-
-    // }
-
     return (
         <Container>
 
@@ -79,18 +58,16 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                     {
                         <>
                             <Row className='mt-2'>
-                                <Col className='col-md-5'>
-                                    <label>Thể loại</label>
+                                <Col className='col-md-4'>
+                                    <label>Thể loại:</label>
                                 </Col>
-                                <Col className='col-md-6 d-flex align-items-center justify-content-center'>
                                     {movie?.genres.map((r) => {
                             return (
                                 <>
-                                        <Col className='ml-3'>{r}</Col>
+                                        <Col className='ml-2 col-md-2 align-items-center justify-content-center'>{r}</Col>
                                 </>
                             )
                         })}
-                                </Col>
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
@@ -99,7 +76,7 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                             </Row>
                             <Row className='mt-2'>
                                 <Col className='col-md-5'>
-                                    <label>Thời gian chiếu</label>
+                                    <label>Thời gian chiếu:</label>
                                 </Col>
                                 <Col className='col-md-5 d-flex align-items-center justify-content-center'>
                                     <label>{movie?.showtime}</label>
@@ -112,7 +89,7 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                             </Row>
                             <Row className='mt-2'>
                                 <Col className='col-md-5'>
-                                    <label>Thời lượng</label>
+                                    <label>Thời lượng:</label>
                                 </Col>
                                 <Col className='col-md-5 d-flex align-items-center justify-content-center'>
                                     <label>{movie?.duration}</label>
@@ -125,7 +102,7 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                             </Row>
                             <Row className='mt-2'>
                                 <Col className='col-md-5'>
-                                    <label>Giá vé</label>
+                                    <label>Giá vé:</label>
                                 </Col>
                                 <Col className='col-md-5 d-flex align-items-center justify-content-center'>
                                     <label>{movie?.ticketPrice}</label>
@@ -138,7 +115,7 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                             </Row>
                             <Row className='mt-2'>
                                 <Col className='col-md-5'>
-                                    <label>Số ghế</label>
+                                    <label>Số ghế:</label>
                                 </Col>
                                 <Col className='col-md-5 d-flex align-items-center justify-content-center'>
                                     <label>{movie?.seatOrdered}/{movie?.seatMax}</label>
@@ -151,7 +128,12 @@ const Views = ({ getMovieData, movie, reviews, setReviews }) => {
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
-                                <Button onClick={()=>seats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
+                                <Button onClick={()=>naseats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
+                                </Col>
+                            </Row>
+                            <Row className='mt-2'>
+                                <Col>
+                                <Button className='btn btn-warning mt-3'  style={{ width: "100%" }}>Lưu</Button>
                                 </Col>
                             </Row>
                             
