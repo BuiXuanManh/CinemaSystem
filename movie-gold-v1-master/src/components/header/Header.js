@@ -12,6 +12,8 @@ import axios from "axios";
 import'./Header.css';
 import api from '../../api/axiosConfig';
 import {message} from "antd";
+export var userNameCheck = false;
+
 
 const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
   const [userData, setUserData] = useState({
@@ -22,9 +24,9 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -51,10 +53,9 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
     const { name, value } = event.target;
     setLoginData({ ...loginData, [name]: value });
   };
-
   const handleRegister = () => {
     if (registerData.password !== registerData.confirmPassword) {
-      alert("Password and Confirm Password do not match");
+      setPasswordMismatch(true);
       return;
     }
 
@@ -86,7 +87,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
         setIsLoggedIn(true);
         setUsername(loginData.username);
         setUserData({userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken});
-        
+        userNameCheck = true;
       })
       .catch((error) => {
         setTimeout(() => {
@@ -112,7 +113,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
         setTimeout(() => {
           message.success("Logout success", 2)
         }, 0);
-      
+      userNameCheck = false;
       })
       .catch((error) => {
         setTimeout(() => {
@@ -122,6 +123,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
       
   };
   return (
+    
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/" style={{ color: "gold" }}>
@@ -155,6 +157,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
           )}
         </Navbar.Collapse>
       </Container>
+      
       <Modal show={showRegisterModal} onHide={closeRegisterModal}>
         <Modal.Header>
           <Modal.Title>Register</Modal.Title>

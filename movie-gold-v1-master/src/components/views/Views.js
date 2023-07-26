@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom';
 import { Container, Row, Col,Form,Button } from 'react-bootstrap';
 import ViewForm from '../viewform/ViewForm';
 import { Link, useNavigate } from "react-router-dom";
-
+import { userNameCheck } from '../header/Header';
 
 
 import React from 'react'
 
 const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
     const navigate = useNavigate();
+    
 
     function naseats(movieId) {
         setMovie(movie);
@@ -27,11 +28,13 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
         getMovieData(movieId);
     }, [])
     const addReview = async (e) => {
+    //    if(userNameCheck){
         e.preventDefault();
 
         const rev = revText.current;
 
         try {
+            
             const response = await api.post("/api/v1/views", { reviewBody: rev.value, imdbId: movieId });
 
             const updatedReviews = [...reviews, { body: rev.value }];
@@ -43,6 +46,10 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
         catch (err) {
             console.error(err);
         }
+    //    }
+    //    else{
+    //     alert("vui lòng đăng nhập để bình luận");
+    //    }
     }
     return (
         <Container>
