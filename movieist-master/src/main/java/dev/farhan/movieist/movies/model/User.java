@@ -29,9 +29,10 @@ public class User implements UserDetails {
     @NonNull
     private String password;
     @DocumentReference
-    private List<Movie> OrderedMovies;
-    @DocumentReference
     private List<Movie> ViewMovies;
+    @DocumentReference
+    private List<Seat> OrderedSeat;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

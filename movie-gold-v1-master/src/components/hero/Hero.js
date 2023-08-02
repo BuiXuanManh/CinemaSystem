@@ -24,16 +24,16 @@ const Hero = ({ movies }) => {
                             <Paper>
                                 <Paper key={movie.imdbId}>
                                     <div className='movie-card-container'>
-                                        <div className="movie-card" style={{ "--img": `url(${movie.backdrops[0]})` }}>
+                                        <div className="movie-card" style={{ "--img": `url(${movie?.backdrops[0]})` }}>
                                             <div className="movie-detail">
                                                 <div className="movie-poster col-md-3">
-                                                    <Button className='btnV btn-secondary' onClick={() => views(movie.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>
+                                                    <Button className='btnV btn-secondary' onClick={() => views(movie?.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>
                                                 </div>
                                                 <div className="movie-title">
                                                     <h4>{movie.title}</h4>
                                                 </div>
                                                 <div className="movie-buttons-container justify-content-center">
-                                                    <Link to={`/Trailer/${movie.trailerLink.substring(movie.trailerLink.length - 11)}`}>
+                                                    <Link to={`/Trailer/${movie.trailerLink.substring(movie?.trailerLink.length - 11)}`}>
                                                         <div className="play-button-icon-container">
                                                             <FontAwesomeIcon className="play-button-icon mr-2"
                                                                 icon={faCirclePlay}
@@ -42,7 +42,7 @@ const Hero = ({ movies }) => {
                                                     </Link>
 
                                                     <div className="movie-review-button-container mr-2 ">
-                                                        <Button variant="info" className='mr-2' onClick={() => views(movie.imdbId)} >View</Button>
+                                                        <Button variant="info" className='mr-2' onClick={() => views(movie?.imdbId)} >View</Button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,811 +1,360 @@
 [
   {
-    _id: ObjectId("64b651042ff1a7630b8f706fa"),
-    seatName:'A2',
-    created: ISODate("2023-07-18T08:44:52.924Z"),
-    updated: ISODate("2023-07-18T08:44:52.924Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651172ff1a7630b8f7070a"),
-    seatName: 'A1',
-    created: ISODate("2023-07-18T08:45:11.510Z"),
-    updated: ISODate("2023-07-18T08:45:11.510Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6511c2ff1a7630b8f7071a"),
-    seatName: 'A3',
-    created: ISODate("2023-07-18T08:45:16.640Z"),
-    updated: ISODate("2023-07-18T08:45:16.640Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A3",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6511f2ff1a7630b8f7072a"),
-    seatName: 'A4',
-    created: ISODate("2023-07-18T08:45:19.831Z"),
-    updated: ISODate("2023-07-18T08:45:19.832Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A4",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651232ff1a7630b8f7073a"),
-    seatName: 'A5',
-    created: ISODate("2023-07-18T08:45:23.032Z"),
-    updated: ISODate("2023-07-18T08:45:23.032Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A5",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651272ff1a7630b8f7074a"),
-    seatName: 'A6',
-    created: ISODate("2023-07-18T08:45:27.570Z"),
-    updated: ISODate("2023-07-18T08:45:27.570Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A6",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6512a2ff1a7630b8f7075a"),
-    seatName: 'A7',
-    created: ISODate("2023-07-18T08:45:30.426Z"),
-    updated: ISODate("2023-07-18T08:45:30.426Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A7",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6512d2ff1a7630b8f7076a"),
-    seatName: 'A8',
-    created: ISODate("2023-07-18T08:45:33.255Z"),
-    updated: ISODate("2023-07-18T08:45:33.255Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A8",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651322ff1a7630b8f7077a"),
-    seatName: 'A9',
-    created: ISODate("2023-07-18T08:45:38.528Z"),
-    updated: ISODate("2023-07-18T08:45:38.528Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651352ff1a7630b8f7078a"),
-    seatName: 'A10',
-    created: ISODate("2023-07-18T08:45:41.656Z"),
-    updated: ISODate("2023-07-18T08:45:41.656Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "A10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651432ff1a7630b8f7079a"),
-    seatName: 'B1',
-    created: ISODate("2023-07-18T08:45:55.213Z"),
-    updated: ISODate("2023-07-18T08:45:55.213Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651452ff1a7630b8f707aa"),
-    seatName: 'B2',
-    created: ISODate("2023-07-18T08:45:57.987Z"),
-    updated: ISODate("2023-07-18T08:45:57.987Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651482ff1a7630b8f707ba"),
-    seatName: 'B3',
-    created: ISODate("2023-07-18T08:46:00.715Z"),
-    updated: ISODate("2023-07-18T08:46:00.715Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B3",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6514c2ff1a7630b8f707ca"),
-    seatName: 'B4',
-    created: ISODate("2023-07-18T08:46:04.344Z"),
-    updated: ISODate("2023-07-18T08:46:04.344Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B4",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6514f2ff1a7630b8f707da"),
-    seatName: 'B5',
-    created: ISODate("2023-07-18T08:46:07.329Z"),
-    updated: ISODate("2023-07-18T08:46:07.329Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B5",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651522ff1a7630b8f707ea"),
-    seatName: 'B6',
-    created: ISODate("2023-07-18T08:46:10.212Z"),
-    updated: ISODate("2023-07-18T08:46:10.212Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B6",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651552ff1a7630b8f707fa"),
-    seatName: 'B7',
-    created: ISODate("2023-07-18T08:46:13.286Z"),
-    updated: ISODate("2023-07-18T08:46:13.286Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B7",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b651582ff1a7630b8f7080a"),
-    seatName: 'B8',
-    created: ISODate("2023-07-18T08:46:16.353Z"),
-    updated: ISODate("2023-07-18T08:46:16.353Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B8",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6515b2ff1a7630b8f7081a"),
-    seatName: 'B9',
-    created: ISODate("2023-07-18T08:46:19.455Z"),
-    updated: ISODate("2023-07-18T08:46:19.455Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6515f2ff1a7630b8f7082a"),
-    seatName: 'B10',
-    created: ISODate("2023-07-18T08:46:23.795Z"),
-    updated: ISODate("2023-07-18T08:46:23.795Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "B10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
- {
-    _id: ObjectId("64b651682ff1a7630b8f7083a"),
-    seatName: 'E1',
-    created: ISODate("2023-07-18T08:46:32.891Z"),
-    updated: ISODate("2023-07-18T08:46:32.891Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6516b2ff1a7630b8f7084a"),
-    seatName: 'E2',
-    created: ISODate("2023-07-18T08:46:35.577Z"),
-    updated: ISODate("2023-07-18T08:46:35.577Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651752ff1a7630b8f7085a"),
-    seatName: 'E3',
-    created: ISODate("2023-07-18T08:46:45.369Z"),
-    updated: ISODate("2023-07-18T08:46:45.369Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6517b2ff1a7630b8f7086a"),
-    seatName: 'E4',
-    created: ISODate("2023-07-18T08:46:51.685Z"),
-    updated: ISODate("2023-07-18T08:46:51.685Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6517e2ff1a7630b8f7087a"),
-    seatName: 'E5',
-    created: ISODate("2023-07-18T08:46:54.489Z"),
-    updated: ISODate("2023-07-18T08:46:54.489Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651812ff1a7630b8f7088a"),
-    seatName: 'E6',
-    created: ISODate("2023-07-18T08:46:57.285Z"),
-    updated: ISODate("2023-07-18T08:46:57.285Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651842ff1a7630b8f7089a"),
-    seatName: 'E7',
-    created: ISODate("2023-07-18T08:47:00.333Z"),
-    updated: ISODate("2023-07-18T08:47:00.333Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651862ff1a7630b8f708aa"),
-    seatName: 'E8',
-    created: ISODate("2023-07-18T08:47:02.963Z"),
-    updated: ISODate("2023-07-18T08:47:02.963Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651892ff1a7630b8f708ba"),
-    seatName: 'E9',
-    created: ISODate("2023-07-18T08:47:05.644Z"),
-    updated: ISODate("2023-07-18T08:47:05.644Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6518c2ff1a7630b8f708ca"),
-    seatName: 'E10',
-    created: ISODate("2023-07-18T08:47:08.850Z"),
-    updated: ISODate("2023-07-18T08:47:08.850Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651922ff1a7630b8f708da"),
-    seatName: 'F1',
-    created: ISODate("2023-07-18T08:47:14.531Z"),
-    updated: ISODate("2023-07-18T08:47:14.531Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651952ff1a7630b8f708ea"),
-    seatName: 'F2',
-    created: ISODate("2023-07-18T08:47:17.815Z"),
-    updated: ISODate("2023-07-18T08:47:17.815Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651982ff1a7630b8f708fa"),
-    seatName: 'F3',
-    created: ISODate("2023-07-18T08:47:20.767Z"),
-    updated: ISODate("2023-07-18T08:47:20.767Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6519c2ff1a7630b8f7090a"),
-    seatName: 'F4',
-    created: ISODate("2023-07-18T08:47:24.010Z"),
-    updated: ISODate("2023-07-18T08:47:24.010Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651a12ff1a7630b8f7091a"),
-    seatName: 'F5',
-    created: ISODate("2023-07-18T08:47:29.979Z"),
-    updated: ISODate("2023-07-18T08:47:29.979Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651a72ff1a7630b8f7092a"),
-    seatName: 'F5',
-    created: ISODate("2023-07-18T08:47:35.019Z"),
-    updated: ISODate("2023-07-18T08:47:35.019Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651ac2ff1a7630b8f7093a"),
-    seatName: 'F6',
-    created: ISODate("2023-07-18T08:47:40.030Z"),
-    updated: ISODate("2023-07-18T08:47:40.030Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651af2ff1a7630b8f7094a"),
-    seatName: 'F7',
-    created: ISODate("2023-07-18T08:47:43.163Z"),
-    updated: ISODate("2023-07-18T08:47:43.163Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651b12ff1a7630b8f7095a"),
-    seatName: 'F8',
-    created: ISODate("2023-07-18T08:47:45.772Z"),
-    updated: ISODate("2023-07-18T08:47:45.772Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651b52ff1a7630b8f7096a"),
-    seatName: 'F9',
-    created: ISODate("2023-07-18T08:47:49.971Z"),
-    updated: ISODate("2023-07-18T08:47:49.971Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-{
-    _id: ObjectId("64b651682ff1a7630b8f7083a"),
-    seatName: 'E1',
-    created: ISODate("2023-07-18T08:46:32.891Z"),
-    updated: ISODate("2023-07-18T08:46:32.891Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6516b2ff1a7630b8f7084a"),
-    seatName: 'E2',
-    created: ISODate("2023-07-18T08:46:35.577Z"),
-    updated: ISODate("2023-07-18T08:46:35.577Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651752ff1a7630b8f7085a"),
-    seatName: 'E3',
-    created: ISODate("2023-07-18T08:46:45.369Z"),
-    updated: ISODate("2023-07-18T08:46:45.369Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6517b2ff1a7630b8f7086a"),
-    seatName: 'E4',
-    created: ISODate("2023-07-18T08:46:51.685Z"),
-    updated: ISODate("2023-07-18T08:46:51.685Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6517e2ff1a7630b8f7087a"),
-    seatName: 'E5',
-    created: ISODate("2023-07-18T08:46:54.489Z"),
-    updated: ISODate("2023-07-18T08:46:54.489Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651812ff1a7630b8f7088a"),
-    seatName: 'E6',
-    created: ISODate("2023-07-18T08:46:57.285Z"),
-    updated: ISODate("2023-07-18T08:46:57.285Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651842ff1a7630b8f7089a"),
-    seatName: 'E7',
-    created: ISODate("2023-07-18T08:47:00.333Z"),
-    updated: ISODate("2023-07-18T08:47:00.333Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651862ff1a7630b8f708aa"),
-    seatName: 'E8',
-    created: ISODate("2023-07-18T08:47:02.963Z"),
-    updated: ISODate("2023-07-18T08:47:02.963Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651892ff1a7630b8f708ba"),
-    seatName: 'E9',
-    created: ISODate("2023-07-18T08:47:05.644Z"),
-    updated: ISODate("2023-07-18T08:47:05.644Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6518c2ff1a7630b8f708ca"),
-    seatName: 'E10',
-    created: ISODate("2023-07-18T08:47:08.850Z"),
-    updated: ISODate("2023-07-18T08:47:08.850Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651922ff1a7630b8f708da"),
-    seatName: 'F1',
-    created: ISODate("2023-07-18T08:47:14.531Z"),
-    updated: ISODate("2023-07-18T08:47:14.531Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651952ff1a7630b8f708ea"),
-    seatName: 'F2',
-    created: ISODate("2023-07-18T08:47:17.815Z"),
-    updated: ISODate("2023-07-18T08:47:17.815Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651982ff1a7630b8f708fa"),
-    seatName: 'F3',
-    created: ISODate("2023-07-18T08:47:20.767Z"),
-    updated: ISODate("2023-07-18T08:47:20.767Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b6519c2ff1a7630b8f7090a"),
-    seatName: 'F4',
-    created: ISODate("2023-07-18T08:47:24.010Z"),
-    updated: ISODate("2023-07-18T08:47:24.010Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651a12ff1a7630b8f7091a"),
-    seatName: 'F5',
-    created: ISODate("2023-07-18T08:47:29.979Z"),
-    updated: ISODate("2023-07-18T08:47:29.979Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651a72ff1a7630b8f7092a"),
-    seatName: 'F5',
-    created: ISODate("2023-07-18T08:47:35.019Z"),
-    updated: ISODate("2023-07-18T08:47:35.019Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651ac2ff1a7630b8f7093a"),
-    seatName: 'F6',
-    created: ISODate("2023-07-18T08:47:40.030Z"),
-    updated: ISODate("2023-07-18T08:47:40.030Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651af2ff1a7630b8f7094a"),
-    seatName: 'F7',
-    created: ISODate("2023-07-18T08:47:43.163Z"),
-    updated: ISODate("2023-07-18T08:47:43.163Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651b12ff1a7630b8f7095a"),
-    seatName: 'F8',
-    created: ISODate("2023-07-18T08:47:45.772Z"),
-    updated: ISODate("2023-07-18T08:47:45.772Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651b52ff1a7630b8f7096a"),
-    seatName: 'F9',
-    created: ISODate("2023-07-18T08:47:49.971Z"),
-    updated: ISODate("2023-07-18T08:47:49.971Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651b92ff1a7630b8f7097a"),
-    seatName: 'F10',
-    created: ISODate("2023-07-18T08:47:53.094Z"),
-    updated: ISODate("2023-07-18T08:47:53.094Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651d62ff1a7630b8f7098a"),
-    seatName: 'C1',
-    created: ISODate("2023-07-18T08:48:22.567Z"),
-    updated: ISODate("2023-07-18T08:48:22.567Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651d92ff1a7630b8f7099a"),
-    seatName: 'C2',
-    created: ISODate("2023-07-18T08:48:25.655Z"),
-    updated: ISODate("2023-07-18T08:48:25.655Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651dd2ff1a7630b8f709aa"),
-    seatName: 'C9',
-    created: ISODate("2023-07-18T08:48:29.355Z"),
-    updated: ISODate("2023-07-18T08:48:29.355Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651e02ff1a7630b8f709ba"),
-    seatName: 'C10',
-    created: ISODate("2023-07-18T08:48:32.338Z"),
-    updated: ISODate("2023-07-18T08:48:32.338Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651e62ff1a7630b8f709ca"),
-    seatName: 'D1',
-    created: ISODate("2023-07-18T08:48:38.464Z"),
-    updated: ISODate("2023-07-18T08:48:38.464Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651e92ff1a7630b8f709da"),
-    seatName: 'D2',
-    created: ISODate("2023-07-18T08:48:41.091Z"),
-    updated: ISODate("2023-07-18T08:48:41.091Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651eb2ff1a7630b8f709ea"),
-    seatName: 'D9',
-    created: ISODate("2023-07-18T08:48:43.857Z"),
-    updated: ISODate("2023-07-18T08:48:43.857Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b651ef2ff1a7630b8f709fa"),
-    seatName: 'D10',
-    created: ISODate("2023-07-18T08:48:47.366Z"),
-    updated: ISODate("2023-07-18T08:48:47.366Z"),
-    style: 'normalSeat',
-    price: 50000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b652402ff1a7630b8f70a0a"),
-    seatName: 'C3',
-    created: ISODate("2023-07-18T08:50:08.708Z"),
-    updated: ISODate("2023-07-18T08:50:08.708Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
-  {
-    _id: ObjectId("64b652442ff1a7630b8f70a1a"),
-    seatName: 'C4',
-    created: ISODate("2023-07-18T08:50:12.132Z"),
-    updated: ISODate("2023-07-18T08:50:12.132Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
-  },
   {
-    _id: ObjectId("64b652472ff1a7630b8f70a2a"),
-    seatName: 'C5',
-    created: ISODate("2023-07-18T08:50:15.283Z"),
-    updated: ISODate("2023-07-18T08:50:15.283Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6524c2ff1a7630b8f70a3a"),
-    seatName: 'C6',
-    created: ISODate("2023-07-18T08:50:20.275Z"),
-    updated: ISODate("2023-07-18T08:50:20.275Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6524f2ff1a7630b8f70a4a"),
-    seatName: 'C7',
-    created: ISODate("2023-07-18T08:50:23.633Z"),
-    updated: ISODate("2023-07-18T08:50:23.633Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E3",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b652532ff1a7630b8f70a5a"),
-    seatName: 'C8',
-    created: ISODate("2023-07-18T08:50:27.664Z"),
-    updated: ISODate("2023-07-18T08:50:27.664Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E4",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6525c2ff1a7630b8f70a6a"),
-    seatName: 'D3',
-    created: ISODate("2023-07-18T08:50:36.453Z"),
-    updated: ISODate("2023-07-18T08:50:36.453Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E5",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b652602ff1a7630b8f70a7a"),
-    seatName: 'D8',
-    created: ISODate("2023-07-18T08:50:40.125Z"),
-    updated: ISODate("2023-07-18T08:50:40.125Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'seat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E6",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b6529e2ff1a7630b8f70a8a"),
-    seatName: 'D4',
-    created: ISODate("2023-07-18T08:51:42.188Z"),
-    updated: ISODate("2023-07-18T08:51:42.188Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'lockedSeat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E7",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b652a22ff1a7630b8f70a9a"),
-    seatName: 'D5',
-    created: ISODate("2023-07-18T08:51:46.275Z"),
-    updated: ISODate("2023-07-18T08:51:46.275Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'lockedSeat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E8",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },
   {
-    _id: ObjectId("64b652a52ff1a7630b8f70aaa"),
-    seatName: 'D6',
-    created: ISODate("2023-07-18T08:51:49.764Z"),
-    updated: ISODate("2023-07-18T08:51:49.764Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'lockedSeat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
   },{
-    _id: ObjectId("64b652a82ff1a7630b8f70aba"),
-    seatName: 'D7',
-    created: ISODate("2023-07-18T08:51:52.479Z"),
-    updated: ISODate("2023-07-18T08:51:52.479Z"),
-    style: 'vipSeat',
-    price: 60000,
-    status: 'lockedSeat',
-    _class: 'dev.farhan.movieist.movies.model.Seat'
+    "seatName": "E10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+},  {
+    "seatName": "F3",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F4",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F5",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F6",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F7",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F8",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "F10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D1",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D2",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D9",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D10",
+    "style": "normalSeat",
+    "price": "50000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C3",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C4",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C5",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C6",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C7",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "C8",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D3",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D8",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "seat"
+  },
+  {
+    "seatName": "D4",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "lockedSeat"
+  },
+  {
+    "seatName": "D5",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "lockedSeat"
+  },
+  {
+    "seatName": "D6",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "lockedSeat"
+  },
+  {
+    "seatName": "D7",
+    "style": "vipSeat",
+    "price": "60000",
+    "status": "lockedSeat"
   }
 ]

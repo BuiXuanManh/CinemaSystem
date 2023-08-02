@@ -1,22 +1,57 @@
-import React,{useRef} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/axiosConfig';
 
-const Pay = ({  totalPrice, seats, loginData }) => {
+// Các import đã import giữ nguyên
+
+const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
   const navigate = useNavigate();
-  const OrderedSeat = useRef(null);
   let params = useParams();
   const movieId = params.movieId;
-  api
-                  .post(`/api/v1/movies/${movieId}`,seats)
-                  .then((response) => {;
-                    alert("successful");
-                  })
+  // const [qrCode, setQrCode] = useState('');
+  const updateSeats = () => {
+    console.log(orderedSeat);
+    api.post(`/api/v1/movies/update/${movieId}/${loginData.username}`, orderedSeat).then(() => {
+      alert("thanh toan thanh cong");
+      navigate(`/views/seats/${movieId}`);
+      // getMovieData(movieId);
+    });
+  };
   const handlePayment = () => {
-    {console.log(seats)}
-    alert("thanh toan thanh cong");
-    navigate(`/views/seats/${movieId}`)
+    if (loginData.username === null)
+      return
+    updateSeats();
+  };
+  useEffect(() => {
+    getMovieData(movieId);
+  }, []);
+  const handlePaymentMomo = () => {
+    // Kiểm tra nếu người dùng chưa đăng nhập thì không cho thanh toán
+    if (loginData.username === null) {
+      return;
+    }
+
+    // Ở đây bạn sẽ thực hiện các bước xử lý thanh toán qua Momo
+    // Đoạn mã sẽ gọi API hoặc xử lý thông tin thanh toán, ví dụ:
+    // Gửi thông tin ghế đã chọn và tổng giá thanh toán lên server
+    api
+      .post(`/api/v1/momo/payment`, {
+        orderedSeat: orderedSeat,
+        totalPrice: totalPrice,
+        username: loginData.username,
+      })
+      .then((response) => {
+        // Xử lý kết quả trả về từ server sau khi thanh toán qua Momo thành công
+        console.log(response.data); // Hiển thị kết quả từ server (tuỳ theo server trả về)
+        alert("Thanh toán thành công qua Momo!");
+        navigate('/'); // Sau khi thanh toán thành công, điều hướng về trang chủ (hoặc trang cần điều hướng)
+      })
+      .catch((error) => {
+        // Xử lý khi có lỗi trong quá trình thanh toán
+        console.error(error);
+        alert("Có lỗi xảy ra trong quá trình thanh toán qua Momo. Vui lòng thử lại sau!");
+      });
   };
 
   return (
@@ -30,23 +65,23 @@ const Pay = ({  totalPrice, seats, loginData }) => {
       {/* Có thể sử dụng `seats` và `tongGia` để hiển thị thông tin chi tiết */}
       {/* Ví dụ: */}
       <Row className="mt-3">
-      <Col>
-        <p>Ghế đã chọn:</p>
-        {seats?.map((seat) => (
-          // Kiểm tra trạng thái của ghế là "OrderedSeat" hay không
-          seat.status === 'OrderedSeat' && (
-            <>
-                <Col>{seat?.seatName}</Col>
+        <Col>
+          <p>Ghế đã chọn:</p>
+          {orderedSeat?.map((seat) => (
+            // Kiểm tra trạng thái của ghế là "OrderedSeat" hay không
+            (
+              <>
+                <Col>{seat}</Col>
 
-              <Row>
-                <Col>
-                  <hr />
-                </Col>
-              </Row>
-            </>
-          )
-        ))}
-      </Col>
+                <Row>
+                  <Col>
+                    <hr />
+                  </Col>
+                </Row>
+              </>
+            )
+          ))}
+        </Col>
       </Row>
       <Row className="mt-3">
         <Col>

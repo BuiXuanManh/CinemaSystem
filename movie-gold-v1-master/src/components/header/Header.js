@@ -9,21 +9,20 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-import'./Header.css';
+import './Header.css';
 import api from '../../api/axiosConfig';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
-  const [userData, setUserData] = useState({
-    userid: "",
-    refreshToken: "",
-    accessToken: "",
-  });
+const Header = ({ userData, setUserData, registerData, setRegisterData, loginData, setLoginData }) => {
+
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -57,6 +56,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
       return;
     }
 
+
     api
       .post("/api/auth/signup", registerData)
       .then((response) => {
@@ -78,8 +78,8 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
         alert("Login successful");
         setIsLoggedIn(true);
         setUsername(loginData.username);
-        setUserData({userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken});
-        
+        setUserData({ userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken });
+
       })
       .catch((error) => {
         alert("Login failed. Invalid username or password");
@@ -89,13 +89,12 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
 
   const handleLogout = () => {
     const refreshToken = localStorage.getItem("refreshToken");
-    
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    console.log("day nè "+userData.refreshToken);
 
     api
       .post("/api/auth/logout", userData, config)
@@ -103,12 +102,15 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
         setIsLoggedIn(false);
         setUsername("");
         alert("Logout successful");
-      
+
       })
       .catch((error) => {
         console.error("Error logging out:", error);
       });
-      
+
+  };
+  const handleViewOrderedSeats = () => {
+    navigate(`/viewOrderedSeat/${username}`);
   };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -126,13 +128,14 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
               Watch List
             </NavLink>
           </Nav>
-          {isLoggedIn ? ( 
+          {isLoggedIn ? (
             <Nav>
               <NavDropdown title={username} id="basic-nav-dropdown">
+                <NavDropdown.Item onClick={handleViewOrderedSeats}>View OrderedSeat</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-          ) : ( 
+          ) : (
             <Nav>
               <Button variant="outline-info" className="me-2" onClick={openLoginModal}>
                 Login
@@ -206,7 +209,7 @@ const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
       </Modal>
       <Modal show={showLoginModal} onHide={closeLoginModal}>
         <Modal.Header>
-          <Modal.Title  id="titleLogin">Login</Modal.Title>
+          <Modal.Title id="titleLogin">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">

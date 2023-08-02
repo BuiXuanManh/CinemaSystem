@@ -9,17 +9,14 @@ import { Link, useNavigate } from "react-router-dom";
 
 import React from 'react'
 
-const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
+const Views = ({ getMovieData, movie,setMovie, reviews, setReviews }) => {
     const navigate = useNavigate();
 
     function naseats(movieId) {
         setMovie(movie);
         navigate(`/views/seats/${movieId}`);
     }
-    
-
     const revText = useRef();
-    const seatText= useRef();
     let params = useParams();
     const movieId = params.movieId;
 
@@ -147,27 +144,25 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                                     <ViewForm handleSubmit={addReview} revText={revText} labelText="Viết bình luận?" />
                                 </Col>
                             </Row>
-                            <Row>
-                                <Col>
-                                    <hr />
-                                </Col>
-                            </Row>
                         </>
                     }
                     {
                         reviews?.map((r) => {
-                            return (
-                                <>
+
+                            if (r && r.body && r.body.trim() !== "") {
+                                return (
+                                  <>
                                     <Row>
-                                        <Col>{r.body}</Col>
+                                      <Col>{r.body}</Col>
                                     </Row>
                                     <Row>
-                                        <Col>
-                                            <hr />
-                                        </Col>
+                                      <Col>
+                                        <hr />
+                                      </Col>
                                     </Row>
-                                </>
-                            )
+                                  </>
+                                );
+                              }
                         })
                     }
                 </Col>

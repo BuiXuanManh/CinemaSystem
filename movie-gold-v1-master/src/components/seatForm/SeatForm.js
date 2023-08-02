@@ -1,57 +1,68 @@
-import './SeatForm.css';
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../../api/axiosConfig';
 import { useParams, useNavigate } from 'react-router-dom';
-const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
 
+const SeatForm = ({ loginData, orderedSeat, setOrderedSeats, setTotalPrice, getMovieData, seats, setSeats }) => {
+
+  useEffect(() => {
+    getMovieData(movieId);
+    console.log(seats);
+  }, []);
+  console.log(seats);
   const OrderedSeat = useRef(null);
   const [tongGia, setTongGia] = useState(0);
   const params = useParams();
   const movieId = params.movieId;
   const navigate = useNavigate();
-  const updateSeats = async (updatedSeats) => {
+  const updateSeats = () => {
     try {
-      console.log(seats)
-      api
-                  .post(`/api/v1/movies/${movieId}`,seats)
-                  .then((response) => {;
-                    alert("successful");
-                  })
+      setOrderedSeats(() => {
+        return seats.map((seat) => {
+          if (seat?.status === 'OrderedSeat') {
+            return seat.seatName;
+          }
+          return undefined;
+        }).filter(Boolean);
+      });
+      console.log(orderedSeat);
+      
+      api.post(`/api/v1/movies/update/${movieId}/${loginData.username}`, orderedSeat).then(() => {
+        setTotalPrice(tongGia);
+        console.log(orderedSeat);
+        console.log(seats);
+        alert("dat cho");
+      });
     } catch (error) {
       console.error(error);
     }
   };
   function pay(movieId) {
-    setTotalPrice(tongGia);
-    console.log(seats); 
-    updateSeats(seats);
-    setSeats(seats);
-    
+    if (loginData.username === null)
+        return
+    console.log(orderedSeat);
+    console.log(seats);
+    setSeats(seats)
+    updateSeats();
     navigate(`/pay/${movieId}`);
   }
-  useEffect(() => {
-    getMovieData(movieId);
-  }, []);
-  // console.log(seats)
+
   const updateStatusSeat = async (seatName, xo) => {
     try {
-      if (xo === "" || xo == null) {
-        setSeats(prevSeats => {
-          return prevSeats.map(seat => {
+      if (xo === '' || xo == null) {
+        setSeats((prevSeats) => {
+          return prevSeats.map((seat) => {
             if (seat?.seatName === seatName) {
-              return { ...seat, status: "OrderedSeat" };
+              return { ...seat, status: 'OrderedSeat' };
             }
             return seat;
           });
         });
-      } else if (xo === "/cancel") {
-        setSeats(prevSeats => {
-          return prevSeats.map(seat => {
+      } else if (xo === '/cancel') {
+        setSeats((prevSeats) => {
+          return prevSeats.map((seat) => {
             if (seat?.seatName === seatName) {
-
-              return { ...seat, status: "Seat" };
-
+              return { ...seat, status: 'Seat' };
             }
             return seat;
           });
@@ -62,142 +73,132 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
     }
   };
 
-  const datCho = (hang, cot) => {
-    const gheId = `${String.fromCharCode(65 + hang - 1)}${cot}`;
-    seats?.map(seat => {
-      if (seat?.seatName === gheId) {
-        OrderedSeat.current = seat;
-      }
-      return seat;
-    });
-
-    let xo = "";
-    if (OrderedSeat.current?.status === "OrderedSeat") {
-      xo = "/cancel";
-      updateStatusSeat(OrderedSeat.current?.seatName, xo);
-    } else {
-      updateStatusSeat(OrderedSeat.current?.seatName, xo);
-
+  const datCho = (seatName) => {
+    OrderedSeat.current = seats.find((seat) => seat?.seatName === seatName);
+    let xo = '';
+    if (OrderedSeat.current?.status === 'OrderedSeat') {
+      xo = '/cancel';
     }
+    updateStatusSeat(seatName, xo);
   };
 
   useEffect(() => {
+    setOrderedSeats(() => {
+      return seats.map((seat) => {
+        if (seat?.status === 'OrderedSeat') {
+          return seat.seatName;
+        }
+        return undefined;
+      }).filter(Boolean);
+    });
     tinhTongGia();
+
   }, [seats]);
 
   const tinhTongGia = () => {
     let tongGiaMoi = 0;
-    seats?.map(seat => {
+    seats?.forEach((seat) => {
       if (seat.status === 'OrderedSeat') {
-        if (
-          seat.style === 'vipSeat'
-        ) {
+        if (seat.style === 'vipSeat') {
           tongGiaMoi += 60000;
         } else {
           tongGiaMoi += 50000;
         }
       }
-    })
-
+    });
     setTongGia(tongGiaMoi);
   };
 
-  const huyCho = (hang, cot) => {
-    const gheId = `${String.fromCharCode(65 + hang - 1)}${cot}`;
-    seats?.map(seat => {
-      if (seat?.seatName === gheId) {
-        OrderedSeat.current = seat;
-      }
-      return seat;
-    });
+  const huyCho = (seatName) => {
+    OrderedSeat.current = seats.find((seat) => seat?.seatName === seatName);
     if (OrderedSeat.current?.seatName) {
-      updateStatusSeat(OrderedSeat.current?.seatName, "/cancel");
+      updateStatusSeat(seatName, '/cancel');
     }
   };
 
   const renderGhe = () => {
-    const soCot = 10; // Số lượng cột
-    const soHang = 6; // Số lượng hàng
+    const sortedSeats = seats.slice().sort((a, b) => {
+      const seatA = a.seatName;
+      const seatB = b.seatName;
+      const rowA = seatA.charCodeAt(0);
+      const rowB = seatB.charCodeAt(0);
+      const colA = Number(seatA.slice(1));
+      const colB = Number(seatB.slice(1));
 
-    const cotSo = [];
-    for (let cot = 1; cot <= soCot; cot++) {
-      cotSo.push(
-        <Col key={`cotSo-${cot}`} className="cot-so">
-          {cot}
-        </Col>
-      );
-    }
-
-    const gheJSX = [];
-    for (let hang = 1; hang <= soHang; hang++) {
-      const hangChuCai = String.fromCharCode(65 + hang - 1);
-      const cotJSX = [];
-      for (let cot = 1; cot <= soCot; cot++) {
-        const gheId = `${hangChuCai}${cot}`;
-        const s = seats?.map(seat => {
-          if (seat?.seatName === gheId) {
-            OrderedSeat.current = seat;
-          }
-          return seat;
-        });
-        let gheClassName = 'seat';
-        let gheVariant = 'light';
-        if (OrderedSeat.current) {
-          gheClassName = 'orderedSeat';
-          gheVariant = OrderedSeat.current.status === 'OrderedSeat' ? 'success' : 'light';
-        }
-        if (gheId === 'D4' || gheId === 'D5' || gheId === 'D6' || gheId === 'D7') {
-          gheClassName += ' lockedSeat';
-          gheVariant = 'secondary';
-        }
-        if (
-          gheId === 'C3' ||
-          gheId === 'C4' ||
-          gheId === 'C5' ||
-          gheId === 'C6' ||
-          gheId === 'C7' ||
-          gheId === 'C8' ||
-          gheId === 'D3' ||
-          gheId === 'D8'
-        ) {
-          gheClassName += ' vipSeat';
-          gheVariant = 'danger';
-          if (OrderedSeat.current && OrderedSeat.current.status === 'OrderedSeat') {
-            gheVariant = 'success';
-          }
-        }
-        cotJSX.push(
-          <Col key={gheId} className={gheClassName}>
-            {/* Ô button đại diện cho ghế */}
-            <Button
-              variant={gheVariant}
-              onClick={() => datCho(hang, cot)}
-              onDoubleClick={() => huyCho(hang, cot)}
-              disabled={gheClassName.includes('lockedSeat')}
-            >
-              {gheId}
-            </Button>
-          </Col>
-        );
+      if (rowA === rowB) {
+        return colA - colB;
       }
-      gheJSX.push(
-        <Row key={hang} className="hang mt-2 text-center">
-          <Col className="hang-chucai text-center mt-2">{hangChuCai}</Col>
-          {cotJSX}
-        </Row>
-      );
+
+      return rowA - rowB;
+    });
+
+    const rows = [];
+    let currentRow = [];
+    let currentRowNumber = -1;
+
+    sortedSeats.forEach((seat) => {
+      const row = seat.seatName.charCodeAt(0);
+
+      if (currentRowNumber !== row) {
+        if (currentRow.length > 0) {
+          rows.push(currentRow);
+        }
+        currentRow = [seat];
+        currentRowNumber = row;
+      } else {
+        currentRow.push(seat);
+      }
+    });
+
+    // Push the last row
+    if (currentRow.length > 0) {
+      rows.push(currentRow);
     }
 
-    return (
-      <>
-        <Row className="hang text-center mb-3">
-          <Col className="cot-so"></Col>
-          {cotSo}
-        </Row>
-        {gheJSX}
-      </>
-    );
+    const gheJSX = rows.map((row, rowIndex) => (
+      <Row key={`row-${rowIndex}`} className="justify-content-center mb-3">
+        {row.map((seat) => {
+          let gheClassName = 'seat';
+          let gheVariant = 'light';
+          switch (seat.status) {
+            case 'OrderedSeat':
+              gheClassName = 'OrderedSeat';
+              gheVariant = 'success';
+              break;
+            case 'lockedSeat':
+              gheClassName = 'lockedSeat';
+              gheVariant = 'secondary';
+              break;
+            default:
+              // Nếu không thuộc các trạng thái trên thì tiếp tục kiểm tra trạng thái style
+              if (seat.style === 'vipSeat') {
+                gheClassName = 'vipSeat';
+                gheVariant = 'danger';
+              }
+              // Các trạng thái khác (nếu có) sẽ giữ nguyên mặc định là 'seat' và 'light'
+              break;
+          }
+
+          return (
+            <Col key={seat.seatName} className={gheClassName} xs={1}>
+              <Button
+                variant={gheVariant}
+                onClick={() => datCho(seat.seatName)}
+                onDoubleClick={() => huyCho(seat.seatName)}
+                disabled={gheClassName.includes('lockedSeat')}
+              >
+                {seat.seatName}
+              </Button>
+            </Col>
+          );
+        })}
+      </Row>
+    ));
+
+    return <>{gheJSX}</>;
   };
+
+
 
   return (
     <Container className="giao-dien-dat-cho">
@@ -214,10 +215,10 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
         </Col>
       </Row>
       <Row className="justify-content-center mt-3">
-        <Col className='col-md-9'>
-            <Button className="btn btn-success mt-3" onClick={() => pay(movieId)} style={{ width: '100%' }}>
-              Thanh toán
-            </Button>
+        <Col className="col-md-9">
+          <Button className="btn btn-success mt-3" onClick={() => pay(movieId)} style={{ width: '100%' }}>
+            Thanh toán
+          </Button>
         </Col>
       </Row>
       <Row className="mt-3">

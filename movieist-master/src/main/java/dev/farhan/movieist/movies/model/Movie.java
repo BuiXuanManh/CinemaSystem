@@ -33,5 +33,7 @@ public class Movie {
     private int seatMax;
     @DocumentReference
     private List<Seat> seats;
+    @DocumentReference
+    private List<User> listUsers;
 
 }
