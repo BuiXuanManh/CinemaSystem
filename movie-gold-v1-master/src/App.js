@@ -12,7 +12,12 @@ import SeatForm from './components/seatForm/SeatForm';
 import Pay from './components/pay/Pay';
 import WatchList from './components/watchList/WatchList';
 
+export let isLoggedIn = false;
+
 function App() {
+
+  
+
 
   const [movies, setMovies] = useState();
   const [saveMovies, setSaveMovies] = useState();

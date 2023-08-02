@@ -3,8 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../../api/axiosConfig';
 import { useParams, useNavigate } from 'react-router-dom';
-const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
+import Header, { userCurrentId }  from '../header/Header';
+import Modal from "react-bootstrap/Modal";
 
+const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats}) => {
+
+  const [showModal, setShowModal] = useState(false);
+    const closeModal = () => {
+        setShowModal(false);
+    };
   const OrderedSeat = useRef(null);
   const [tongGia, setTongGia] = useState(0);
   const params = useParams();
@@ -12,23 +19,25 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
   const navigate = useNavigate();
   const updateSeats = async (updatedSeats) => {
     try {
-      console.log(seats)
       api
                   .post(`/api/v1/movies/${movieId}`,seats)
                   .then((response) => {;
-                    alert("successful");
+                    alert(response.data);
                   })
     } catch (error) {
       console.error(error);
     }
   };
   function pay(movieId) {
-    setTotalPrice(tongGia);
-    console.log(seats); 
-    updateSeats(seats);
-    setSeats(seats);
-    
-    navigate(`/pay/${movieId}`);
+    if(userCurrentId!=null){
+      setTotalPrice(tongGia);
+      updateSeats(seats);
+      setSeats(seats);
+      navigate(`/pay/${movieId}`);
+    }
+    else{
+      setShowModal(true);
+    }
   }
   useEffect(() => {
     getMovieData(movieId);
@@ -242,6 +251,18 @@ const SeatForm = ({setTotalPrice, getMovieData, seats, setSeats }) => {
         <Button className="col-md-1" variant="secondary" disabled />
         <span className="col-md-3 ml-1">Ghế đã khóa</span>
       </Row>
+      <Modal show={showModal} onHide={closeModal}>
+                <Modal.Body>
+                    <div className="mb-3" style={{ textAlign: "center" }}>
+                        <label htmlFor="notify" className="form-label" style={{fontSize: "30px"}}>You must log in to continue</label>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer id="LFooter">
+                    <Button variant="danger" onClick={closeModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
     </Container>
   );
 };

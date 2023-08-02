@@ -8,15 +8,14 @@ const Pay = ({  totalPrice, seats, loginData }) => {
   const OrderedSeat = useRef(null);
   let params = useParams();
   const movieId = params.movieId;
-  api
+  
+  const handlePayment = () => {
+    api
                   .post(`/api/v1/movies/${movieId}`,seats)
                   .then((response) => {;
-                    alert("successful");
+                    alert("thanh toan thanh cong");
+                    navigate(`/views/seats/${movieId}`)
                   })
-  const handlePayment = () => {
-    {console.log(seats)}
-    alert("thanh toan thanh cong");
-    navigate(`/views/seats/${movieId}`)
   };
 
   return (
@@ -57,7 +56,7 @@ const Pay = ({  totalPrice, seats, loginData }) => {
       {/* Nút thanh toán */}
       <Row className="justify-content-center mt-3">
         <Col className="col-md-9">
-          <Button className="btn btn-success mt-3" onClick={handlePayment} style={{ width: '100%' }}>
+          <Button className="btn btn-success mt-3" onClick={handlePayment} style={{ width: '100%', marginBottom: '20px' }}>
             Thanh toán
           </Button>
         </Col>

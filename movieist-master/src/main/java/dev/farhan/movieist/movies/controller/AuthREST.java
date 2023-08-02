@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -68,8 +69,8 @@ public class AuthREST {
 
     @CrossOrigin( origins =  "http://localhost:3000")
     @PostMapping("logout")
-    public ResponseEntity<?> logout(@RequestBody TokenDTO dto) {
-        String refreshTokenString = dto.getRefreshToken();
+    public ResponseEntity<?> logout(@RequestBody Map<String, String> dto) {
+        String refreshTokenString = dto.get("refresh_token");
         if (jwtHelper.validateRefreshToken(refreshTokenString) && refreshTokenRepository.existsById(jwtHelper.getTokenIdFromRefreshToken(refreshTokenString))) {
             // valid and exists in db
             refreshTokenRepository.deleteById(jwtHelper.getTokenIdFromRefreshToken(refreshTokenString));
@@ -129,5 +130,12 @@ public class AuthREST {
         }
 
         throw new BadCredentialsException("invalid token");
+    }
+    @PostMapping
+    public boolean checkLoginCurrent(){
+
+
+
+        return false;
     }
 }

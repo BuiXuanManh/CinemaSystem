@@ -1,26 +1,26 @@
-import { useEffect, useRef} from 'react';
+import { useEffect, useRef } from 'react';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Col,Form,Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import ViewForm from '../viewform/ViewForm';
 import { Link, useNavigate } from "react-router-dom";
-import { userNameCheck } from '../header/Header';
+import React, { useState } from "react";
+import { userCurrentId, userName } from '../header/Header.js';
+import Modal from "react-bootstrap/Modal";
 
-
-import React from 'react'
-
-const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
+const Views = ({ getMovieData, movie, setMovie, reviews, setReviews, seats, setSaveMovies, saveMovies }) => {
     const navigate = useNavigate();
-    
-
     function naseats(movieId) {
         setMovie(movie);
         navigate(`/views/seats/${movieId}`);
     }
-    
 
+    const [showModal, setShowModal] = useState(false);
+    const closeModal = () => {
+        setShowModal(false);
+    };
     const revText = useRef();
-    const seatText= useRef();
+    const seatText = useRef();
     let params = useParams();
     const movieId = params.movieId;
 
@@ -28,28 +28,30 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
         getMovieData(movieId);
     }, [])
     const addReview = async (e) => {
-    //    if(userNameCheck){
-        e.preventDefault();
-
-        const rev = revText.current;
-
-        try {
+        if (userCurrentId != null) {
+            e.preventDefault();
             
-            const response = await api.post("/api/v1/views", { reviewBody: rev.value, imdbId: movieId });
+            const rev = revText.current;
+            
+            try {
+                
+                if (rev.value ?? false) {
+                    const response = await api.post("/api/v1/views", { user: userName, reviewBody: rev.value, imdbId: movieId });
 
-            const updatedReviews = [...reviews, { body: rev.value }];
+                    const updatedReviews = [...reviews, { body: rev.value }];
 
-            rev.value = "";
+                    rev.value = "";
 
-            setReviews(updatedReviews);
+                    setReviews(updatedReviews);
+                }
+            }
+            catch (err) {
+                console.error(err);
+            }
         }
-        catch (err) {
-            console.error(err);
+        else {
+            setShowModal(true);
         }
-    //    }
-    //    else{
-    //     alert("vui lòng đăng nhập để bình luận");
-    //    }
     }
     return (
         <Container>
@@ -68,13 +70,13 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                                 <Col className='col-md-4'>
                                     <label>Thể loại:</label>
                                 </Col>
-                                    {movie?.genres.map((r) => {
-                            return (
-                                <>
-                                        <Col className='ml-2 col-md-2 align-items-center justify-content-center'>{r}</Col>
-                                </>
-                            )
-                        })}
+                                {movie?.genres.map((r) => {
+                                    return (
+                                        <>
+                                            <Col className='ml-2 col-md-2 align-items-center justify-content-center'>{r}</Col>
+                                        </>
+                                    )
+                                })}
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
@@ -135,15 +137,15 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
-                                <Button onClick={()=>naseats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
+                                    <Button onClick={() => naseats(movie?.imdbId)} className='btn btn-success mt-3' style={{ width: "100%" }}>Đặt vé</Button>
                                 </Col>
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
-                                <Button className='btn btn-warning mt-3'  style={{ width: "100%" }}>Lưu</Button>
+                                    <Button className='btn btn-warning mt-3' style={{ width: "100%" }}>Lưu</Button>
                                 </Col>
                             </Row>
-                            
+
                             <Row className='mt-3'>
                                 <Col>
                                     <hr />
@@ -166,7 +168,7 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                             return (
                                 <>
                                     <Row>
-                                        <Col>{r.body}</Col>
+                                        <Col>{r.userName + ": " + r.body}</Col>
                                     </Row>
                                     <Row>
                                         <Col>
@@ -184,6 +186,18 @@ const Views = ({ getMovieData, movie,setMovie, reviews, setReviews, seats, setSa
                     <hr />
                 </Col>
             </Row>
+            <Modal show={showModal} onHide={closeModal}>
+                <Modal.Body>
+                    <div className="mb-3" style={{ textAlign: "center" }}>
+                        <label htmlFor="notify" className="form-label" style={{ fontSize: "30px" }}>You must log in to continue</label>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer id="LFooter">
+                    <Button variant="danger" onClick={closeModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 }
