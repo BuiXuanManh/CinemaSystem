@@ -2,19 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import api from '../../api/axiosConfig';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import Header, { userCurrentId } from '../header/Header';
+import Modal from "react-bootstrap/Modal";
+import Cookies from 'js-cookie';
 const SeatForm = ({ loginData, orderedSeat, setOrderedSeats, setTotalPrice, getMovieData, seats, setSeats }) => {
 
-  useEffect(() => {
-    getMovieData(movieId);
-    console.log(seats);
-  }, []);
-  console.log(seats);
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = () => {
+    setShowModal(false);
+  };
   const OrderedSeat = useRef(null);
   const [tongGia, setTongGia] = useState(0);
   const params = useParams();
   const movieId = params.movieId;
   const navigate = useNavigate();
+  useEffect(() => {
+    getMovieData(movieId);
+    console.log(seats);
+  }, []);
   const updateSeats = () => {
     try {
       setOrderedSeats(() => {
@@ -26,20 +31,23 @@ const SeatForm = ({ loginData, orderedSeat, setOrderedSeats, setTotalPrice, getM
         }).filter(Boolean);
       });
       console.log(orderedSeat);
-      
-      api.post(`/api/v1/movies/update/${movieId}/${loginData.username}`, orderedSeat).then(() => {
+
+      api.post(`/api/v1/movies/update/${movieId}/${Cookies.get('user_name')}`, orderedSeat).then(() => {
         setTotalPrice(tongGia);
         console.log(orderedSeat);
         console.log(seats);
-        alert("dat cho");
+        alert("thanh toan");
       });
     } catch (error) {
       console.error(error);
     }
   };
   function pay(movieId) {
-    if (loginData.username === null)
-        return
+    if (Cookies.get('user_name') === null)
+      return;
+    else {
+      setShowModal(true);
+    }
     console.log(orderedSeat);
     console.log(seats);
     setSeats(seats)
@@ -243,6 +251,18 @@ const SeatForm = ({ loginData, orderedSeat, setOrderedSeats, setTotalPrice, getM
         <Button className="col-md-1" variant="secondary" disabled />
         <span className="col-md-3 ml-1">Ghế đã khóa</span>
       </Row>
+      <Modal show={showModal} onHide={closeModal}>
+        <Modal.Body>
+          <div className="mb-3" style={{ textAlign: "center" }}>
+            <label htmlFor="notify" className="form-label" style={{ fontSize: "30px" }}>You must log in to continue</label>
+          </div>
+        </Modal.Body>
+        <Modal.Footer id="LFooter">
+          <Button variant="danger" onClick={closeModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideoSlash } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
@@ -6,24 +6,43 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink } from "react-router-dom";
+import { NavLink,useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-import './Header.css';
+import'./Header.css';
 import api from '../../api/axiosConfig';
-import { useParams, useNavigate } from 'react-router-dom';
+import {message} from "antd";
+import Cookies from 'js-cookie';
+import { isLoggedIn, setLoggedIn } from "../../index.js";
+import ReCAPTCHA from 'react-google-recaptcha';
 
-const Header = ({ userData, setUserData, registerData, setRegisterData, loginData, setLoginData }) => {
 
+export var userCurrentId= null;
+export var userName = null;
+
+
+export const Header = ({registerData, setRegisterData, loginData, setLoginData }) => {
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const [isLogin, setIsLogin] = useState(isLoggedIn);
+  const [userData, setUserData] = useState({
+    userid: "",
+    refreshToken: "",
+    accessToken: "",
+  });
+  const navigate= useNavigate();
   const [passwordMismatch, setPasswordMismatch] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-
-  const navigate = useNavigate();
-
+  useEffect(()=>{
+    if(Cookies===undefined)
+    setIsLogin(false)
+  },[Cookies])
+  const handleCaptchaVerify = () => {
+    setCaptchaVerified(true);
+  };
+  const handleCaptchaExpired = () => {
+    setCaptchaVerified(false);
+  };
   const openRegisterModal = () => {
     setShowRegisterModal(true);
   };
@@ -52,67 +71,94 @@ const Header = ({ userData, setUserData, registerData, setRegisterData, loginDat
 
   const handleRegister = () => {
     if (registerData.password !== registerData.confirmPassword) {
-      alert("Password and Confirm Password do not match");
+      setPasswordMismatch(true);
       return;
     }
-
 
     api
       .post("/api/auth/signup", registerData)
       .then((response) => {
         setPasswordMismatch(false);
-        alert("successful");
+        setTimeout(() => {
+          message.success("Register success", 2)
+        }, 0);
         closeRegisterModal();
+        openLoginModal;
       })
       .catch((error) => {
         setPasswordMismatch(true);
-        console.error(error);
+        setTimeout(() => {
+          message.error("Register failed", 2)
+        }, 0);
       });
   };
-
+	const handleViewOrderedSeats = () => {
+    navigate(`/viewOrderedSeat/${Cookies.get('user_name')}`);
+  };
   const handleLogin = () => {
+    if (!captchaVerified) {
+      return;
+    }
     api
       .post("/api/auth/login", loginData)
       .then((response) => {
+        setLoggedIn(true);
+        setIsLogin(true);
         closeLoginModal();
-        alert("Login successful");
-        setIsLoggedIn(true);
-        setUsername(loginData.username);
-        setUserData({ userid: response.data.accessToken, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken });
-
+        setTimeout(() => {
+          message.success("Login success", 2)
+        }, 0);
+        
+        const token = response.data.refreshToken;
+        Cookies.set('auth_token', token, { expires: 2 });
+        userName = loginData.username;
+        setUserData({userid: response.data.userId, refreshToken: response.data.refreshToken, accessToken: response.data.accessToken});
+        userCurrentId = response.data.userId;
+        Cookies.set('user_id', response.data.userId, 2);
+        Cookies.set('access_token', response.data.accessToken, 2);
+        Cookies.set('user_name',loginData.username, 2);
+        
       })
       .catch((error) => {
-        alert("Login failed. Invalid username or password");
-        console.error(error);
+        setTimeout(() => {
+          message.error("Login failed!!", 2)
+        }, 0);
       });
   };
 
   const handleLogout = () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-
+    console.log(Cookies.get('auth_token'))
+    
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-
+    
     api
-      .post("/api/auth/logout", userData, config)
+      .post("/api/auth/logout", {userID: Cookies.get('user_id'), refreshToken: Cookies.get('auth_token'), accessToken: Cookies.get('access_token') }, config)
       .then((response) => {
-        setIsLoggedIn(false);
-        setUsername("");
-        alert("Logout successful");
-
+        userName = null;
+        setTimeout(() => {
+          message.success("Logout success", 2)
+        }, 0);
+        setLoggedIn(false);
+        setIsLogin(false);
+        Cookies.remove('auth_token');
+        Cookies.remove('user_id');
+        Cookies.remove('user_name');
+        Cookies.remove('access_token');
+        userCurrentId = null;
       })
       .catch((error) => {
-        console.error("Error logging out:", error);
+        setTimeout(() => {
+          message.error("Logout failed", 2)
+        }, 0);
       });
-
-  };
-  const handleViewOrderedSeats = () => {
-    navigate(`/viewOrderedSeat/${username}`);
+      
   };
   return (
+    
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/" style={{ color: "gold" }}>
@@ -128,14 +174,14 @@ const Header = ({ userData, setUserData, registerData, setRegisterData, loginDat
               Watch List
             </NavLink>
           </Nav>
-          {isLoggedIn ? (
+          {isLogin ? ( 
             <Nav>
-              <NavDropdown title={username} id="basic-nav-dropdown">
+              <NavDropdown title={Cookies.get('user_name')} id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={handleViewOrderedSeats}>View OrderedSeat</NavDropdown.Item>
                 <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>
-          ) : (
+          ) : ( 
             <Nav>
               <Button variant="outline-info" className="me-2" onClick={openLoginModal}>
                 Login
@@ -147,6 +193,7 @@ const Header = ({ userData, setUserData, registerData, setRegisterData, loginDat
           )}
         </Navbar.Collapse>
       </Container>
+      
       <Modal show={showRegisterModal} onHide={closeRegisterModal}>
         <Modal.Header>
           <Modal.Title>Register</Modal.Title>
@@ -209,7 +256,7 @@ const Header = ({ userData, setUserData, registerData, setRegisterData, loginDat
       </Modal>
       <Modal show={showLoginModal} onHide={closeLoginModal}>
         <Modal.Header>
-          <Modal.Title id="titleLogin">Login</Modal.Title>
+          <Modal.Title  id="titleLogin">Login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
@@ -234,6 +281,14 @@ const Header = ({ userData, setUserData, registerData, setRegisterData, loginDat
               onChange={handleLoginInputChange}
             />
           </div>
+          <div className="mb-3">
+          <ReCAPTCHA
+            sitekey="6LciN2gnAAAAADXsBkEN0u03rF8xRkULTfkbt6Ip"
+            onChange={handleCaptchaVerify}
+            onExpired={handleCaptchaExpired}
+          />
+        </div>
+        
         </Modal.Body>
         <Modal.Footer id="LFooter">
           <Button variant="danger" onClick={closeLoginModal}>

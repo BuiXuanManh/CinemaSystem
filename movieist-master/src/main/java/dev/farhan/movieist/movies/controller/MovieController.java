@@ -3,7 +3,6 @@ package dev.farhan.movieist.movies.controller;
 import dev.farhan.movieist.movies.model.Movie;
 import dev.farhan.movieist.movies.model.Seat;
 import dev.farhan.movieist.movies.model.User;
-import dev.farhan.movieist.movies.repository.UserRepository;
 import dev.farhan.movieist.movies.service.MovieService;
 import dev.farhan.movieist.movies.service.SeatService;
 import dev.farhan.movieist.movies.service.UserService;
@@ -28,16 +27,16 @@ public class MovieController {
     @Autowired
     private UserService userService;
 
-    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackGetMovies")
+//    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackGetMovies")
     @GetMapping
     public ResponseEntity<List<Movie>> getMovies() {
         return new ResponseEntity<List<Movie>>(service.findAllMovies(), HttpStatus.OK);
     }
 
-    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
+//    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
     @GetMapping("/{imdbId}")
-    @Retry(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
-    @RateLimiter(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
+//    @Retry(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
+//    @RateLimiter(name = "movieService", fallbackMethod = "fallbackGetSingleMovie")
     public ResponseEntity<Movie> getSingleMovie(@PathVariable String imdbId) {
         Optional<Movie> m = service.findMovieByImdbId(imdbId);
         Movie n = new Movie();
@@ -58,16 +57,27 @@ public class MovieController {
         return new ResponseEntity<Movie>(n, HttpStatus.OK);
     }
 
-    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackUpdateSeat")
+//    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackUpdateSeat")
     @PostMapping("/update/{imdbId}/{username}")
-    public void updateSeat(@RequestBody List<String> seatNames, @PathVariable("imdbId") String imdbId, @PathVariable("username") String username) {
+    public ResponseEntity<Movie> updateSeat(@RequestBody List<String> seatNames, @PathVariable("imdbId") String imdbId, @PathVariable("username") String username) throws Exception {
         User u = userService.findByUserName(username);
         if (seatNames != null) {
-            service.updateSeats(seatNames, imdbId, u);
+            ResponseEntity<Movie> a = service.updateSeats(seatNames, imdbId, u);
+            return a;
         }
+        return null;
+    }
+    @PostMapping("/update2/{imdbId}/{username}")
+    public ResponseEntity<Movie> updateSeat2(@RequestBody List<String> seatNames, @PathVariable("imdbId") String imdbId, @PathVariable("username") String username) throws Exception {
+        User u = userService.findByUserName(username);
+        if (seatNames != null) {
+            ResponseEntity<Movie> a = service.updateSeats2(seatNames, imdbId, u);
+            return a;
+        }
+        return null;
     }
 
-    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackInserSeat")
+//    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackInserSeat")
     @PostMapping("/insert/{imdbId}")
     public Movie inserSeat(@RequestBody List<Seat> seat, @PathVariable String imdbId) {
         Movie m = service.findMovieByImdbId(imdbId).orElse(null);
@@ -81,7 +91,7 @@ public class MovieController {
         return m;
     }
 
-    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackFind")
+//    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackFind")
     @GetMapping("/seat/{imdbId}")
     public List<Seat> find(@PathVariable("imdbId") String imdbId) {
         Movie m = service.findMovieByImdbId(imdbId).get();

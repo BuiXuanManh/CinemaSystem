@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/axiosConfig';
-
+import Cookies from 'js-cookie';
 // Các import đã import giữ nguyên
 
 const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
@@ -12,14 +12,14 @@ const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
   // const [qrCode, setQrCode] = useState('');
   const updateSeats = () => {
     console.log(orderedSeat);
-    api.post(`/api/v1/movies/update/${movieId}/${loginData.username}`, orderedSeat).then(() => {
+    api.post(`/api/v1/movies/update2/${movieId}/${Cookies.get('user_name')}`, orderedSeat).then(() => {
       alert("thanh toan thanh cong");
       navigate(`/views/seats/${movieId}`);
       // getMovieData(movieId);
     });
   };
   const handlePayment = () => {
-    if (loginData.username === null)
+    if (Cookies.get('user_name') === null)
       return
     updateSeats();
   };
@@ -28,7 +28,8 @@ const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
   }, []);
   const handlePaymentMomo = () => {
     // Kiểm tra nếu người dùng chưa đăng nhập thì không cho thanh toán
-    if (loginData.username === null) {
+    if (Cookies.get('user_name') === null) {
+      alert("not login")
       return;
     }
 
@@ -39,7 +40,7 @@ const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
       .post(`/api/v1/momo/payment`, {
         orderedSeat: orderedSeat,
         totalPrice: totalPrice,
-        username: loginData.username,
+        username: Cookies.get('user_name'),
       })
       .then((response) => {
         // Xử lý kết quả trả về từ server sau khi thanh toán qua Momo thành công

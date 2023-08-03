@@ -8,6 +8,8 @@ import dev.farhan.movieist.movies.repository.SeatRepository;
 import dev.farhan.movieist.movies.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,11 +31,11 @@ public class MovieService {
     public Optional<Movie> findMovieByImdbId(String imdbId) {
         return repository.findMovieByImdbId(imdbId);
     }
-
+    private String orderId;
     public Movie save(Movie movie) {
         return repository.save(movie);
     }
-    public Movie updateSeats(List<String> updatedSeats, String imdbId, User us) {
+    public ResponseEntity<Movie> updateSeats(List<String> updatedSeats, String imdbId, User us){
         Optional<Movie> optionalMovie = repository.findMovieByImdbId(imdbId);
         if (optionalMovie.isPresent()) {
             Movie movie = optionalMovie.get();
@@ -45,10 +47,16 @@ public class MovieService {
                         String status = s.getStatus();
                         if (status.equals("seat")) {
                             s.setMoviesId(imdbId);
+                            s.setUserName(us.getUsername());
                             s.setStatus("OrderedSeat");
                             s.setUpdated(LocalDateTime.now());
                             SeatRepository.save(s);
                         } else if (status.equals("OrderedSeat")) {
+//                            if(s.getUserName().equalsIgnoreCase(us.getUsername())==false){
+//                                System.out.println(s.getUserName());
+//                                new ResponseEntity<Movie>(HttpStatus.INTERNAL_SERVER_ERROR);
+//                            }
+
                             s.setMoviesId(movie.getTitle());
                             s.setStatus("lockedSeat");
                             s.setUpdated(LocalDateTime.now());
@@ -62,7 +70,41 @@ public class MovieService {
             us.setOrderedSeat(orderedSeats);
             Movie updatedMovie = repository.save(movie);
             userRepository.save(us);
-            return updatedMovie;
+            return  new ResponseEntity<Movie>(updatedMovie,HttpStatus.OK);
+        } else {
+            return null;
+        }
+    }
+    public ResponseEntity<Movie> updateSeats2(List<String> updatedSeats, String imdbId, User us){
+        Optional<Movie> optionalMovie = repository.findMovieByImdbId(imdbId);
+        if (optionalMovie.isPresent()) {
+            Movie movie = optionalMovie.get();
+            List<Seat> movieSeats = movie.getSeats();
+            List<Seat> orderedSeats = us.getOrderedSeat();
+            for (Seat s : movieSeats) {
+                for (String updatedSeatName : updatedSeats) {
+                    if (s.getSeatName().equalsIgnoreCase(updatedSeatName)) {
+                        String status = s.getStatus();
+                        if (status.equals("OrderedSeat")) {
+//                            if(!s.getUserName().equalsIgnoreCase(us.getUsername())){
+//                                System.out.println(s.getUserName());
+//                                return new ResponseEntity<Movie>(HttpStatus.INTERNAL_SERVER_ERROR);
+//
+//                            }
+                            s.setMoviesId(movie.getTitle());
+                            s.setStatus("lockedSeat");
+                            s.setUpdated(LocalDateTime.now());
+                            orderedSeats.add(s);
+                            System.out.println(s);
+                            SeatRepository.save(s);
+                        }
+                    }
+                }
+            }
+            us.setOrderedSeat(orderedSeats);
+            Movie updatedMovie = repository.save(movie);
+            userRepository.save(us);
+            return  new ResponseEntity<Movie>(updatedMovie,HttpStatus.OK);
         } else {
             return null;
         }

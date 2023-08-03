@@ -24,6 +24,7 @@ public class Seat {
     private Double price;
     private String status;
     private String moviesId;
+    private String userName;
     public Seat(String seatName, LocalDateTime created, LocalDateTime updated, String style, Double price, String status) {
         this.seatName = seatName;
         this.created = created;

@@ -2,22 +2,34 @@ import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
-
-const WatchList = ({ movies, saveMovies, setSaveMovies }) => {
+import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+const WatchList = ({ getMovieData,saveMovies, movies, setSaveMovies }) => {
 
     const navigate = useNavigate();
-
+    var listSaveMovies2 = []
+    const counter = {}
+    const params = useParams();
+    const movieId = params.movieId;
     function views(movieId) {
         navigate(`/views/${movieId}`);
     }
-
+    
+    useEffect(() => {      
+        if (Cookies.get('user_name') === undefined) {
+            alert("not login")
+            return;
+          }
+          getMovieData(movieId);
+    }, [])
+ 
     return (
         <div className='movie-carousel-container'>
             <div className="row">
-                {movies?.map((movie) => (
+                {saveMovies?.map((movie) => (
                     <div key={movie.imdbId} className="col-lg-3 col-md-3 col-sm-3">
                         <div className="card mb-4 shadow-sm">
                             <Button onClick={() => views(movie.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>

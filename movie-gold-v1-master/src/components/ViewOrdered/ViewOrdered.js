@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/axiosConfig';
-import {Form,Row} from 'react-bootstrap';
+import { Form, Row } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 const ViewOrdered = ({ userSeat, setUserSeat, user, setUser, loginData }) => {
-
-
     useEffect(() => {
-        fetchOrderedSeats(loginData.username);
+        fetchOrderedSeats(Cookies.get('user_name'));
     }, [loginData]);
 
     useEffect(() => {

@@ -11,13 +11,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/views")
+@CrossOrigin( origins =  "http://localhost:3000")
 public class ReviewController {
     @Autowired
     private ReviewService service;
 
     @PostMapping()
-    public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload) {
+        public ResponseEntity<Review> createReview(@RequestBody Map<String, String> payload) {
 
-        return new ResponseEntity<Review>(service.createReview(payload.get("reviewBody"), payload.get("imdbId")), HttpStatus.OK);
+        return new ResponseEntity<Review>(service.createReview(payload.get("user"),payload.get("reviewBody"), payload.get("imdbId")), HttpStatus.OK);
     }
 }
