@@ -12,7 +12,7 @@ const Pay = ({ loginData, getMovieData, orderedSeat, totalPrice }) => {
   // const [qrCode, setQrCode] = useState('');
   const updateSeats = () => {
     console.log(orderedSeat);
-    api.post(`/api/v1/movies/update2/${movieId}/${Cookies.get('user_name')}`, orderedSeat).then(() => {
+    api.post(`/api/v1/movies/update/${movieId}/${Cookies.get('user_name')}`, orderedSeat).then(() => {
       alert("thanh toan thanh cong");
       navigate(`/views/seats/${movieId}`);
       // getMovieData(movieId);

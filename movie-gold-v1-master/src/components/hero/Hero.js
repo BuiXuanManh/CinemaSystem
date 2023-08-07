@@ -6,7 +6,7 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import Cookies from 'js-cookie';
 const Hero = ({ movies }) => {
 
     const navigate = useNavigate();
@@ -14,7 +14,6 @@ const Hero = ({ movies }) => {
     function views(movieId) {
         navigate(`/views/${movieId}`);
     }
-
     return (
         <div className='movie-carousel-container'>
             <Carousel>
@@ -26,8 +25,10 @@ const Hero = ({ movies }) => {
                                     <div className='movie-card-container'>
                                         <div className="movie-card" style={{ "--img": `url(${movie?.backdrops[0]})` }}>
                                             <div className="movie-detail">
-                                                <div className="movie-poster col-md-3">
-                                                    <Button className='btnV btn-secondary' onClick={() => views(movie?.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>
+                                                <div className='col-md-2'>
+                                                <div className="movie-poster">
+                                                    <Button className='btn btn-secondary' onClick={() => views(movie?.imdbId)}><img style={{height:'275px', width:'100%'}} src={movie.poster} alt="" /></Button>
+                                                </div>
                                                 </div>
                                                 <div className="movie-title">
                                                     <h4>{movie.title}</h4>
@@ -61,7 +62,7 @@ const Hero = ({ movies }) => {
                 {movies?.map((movie) => (
                     <div key={movie.imdbId} className="col-lg-3 col-md-3 col-sm-3">
                         <div className="card mb-4 shadow-sm">
-                            <Button onClick={() => views(movie.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>
+                            <Button onClick={() => views(movie.imdbId)}><img className="card-img-top custom-image" src={movie.poster} alt="" /></Button>
                             <div className="card-body bg-white text-brown">
                                 <div className="movie-t2">
                                     <h5>{movie.title}</h5>

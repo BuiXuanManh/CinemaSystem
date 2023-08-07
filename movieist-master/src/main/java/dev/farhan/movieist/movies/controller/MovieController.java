@@ -67,15 +67,6 @@ public class MovieController {
         }
         return null;
     }
-    @PostMapping("/update2/{imdbId}/{username}")
-    public ResponseEntity<Movie> updateSeat2(@RequestBody List<String> seatNames, @PathVariable("imdbId") String imdbId, @PathVariable("username") String username) throws Exception {
-        User u = userService.findByUserName(username);
-        if (seatNames != null) {
-            ResponseEntity<Movie> a = service.updateSeats2(seatNames, imdbId, u);
-            return a;
-        }
-        return null;
-    }
 
 //    @CircuitBreaker(name = "movieService", fallbackMethod = "fallbackInserSeat")
     @PostMapping("/insert/{imdbId}")

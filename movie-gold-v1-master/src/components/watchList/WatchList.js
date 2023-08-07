@@ -1,5 +1,6 @@
 import Carousel from 'react-material-ui-carousel';
 import { Paper } from '@mui/material';
+import './WatchList.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -7,11 +8,12 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-const WatchList = ({ getMovieData,saveMovies, movies, setSaveMovies }) => {
+import { Row } from 'react-bootstrap';
+const WatchList = ({ getMovieData, saveMovies, movies, setSaveMovies }) => {
 
     const navigate = useNavigate();
-    var listSaveMovies2 = []
-    const counter = {}
+    // var listSaveMovies2 = []
+    // const counter = {}
     const params = useParams();
     const movieId = params.movieId;
     function views(movieId) {
@@ -23,22 +25,22 @@ const WatchList = ({ getMovieData,saveMovies, movies, setSaveMovies }) => {
             alert("not login")
             return;
           }
-          getMovieData(movieId);
-    }, [])
- 
+        //   getViewMovies();
+    },[])
+    
     return (
         <div className='movie-carousel-container'>
             <div className="row">
+                {console.log(saveMovies)}
                 {saveMovies?.map((movie) => (
                     <div key={movie.imdbId} className="col-lg-3 col-md-3 col-sm-3">
                         <div className="card mb-4 shadow-sm">
-                            <Button onClick={() => views(movie.imdbId)}><img className="card-img-top" src={movie.poster} alt="" /></Button>
+                            <Button onClick={() => views(movie.imdbId)}><img className="card-img-top custom-image" src={movie.poster} alt="" /></Button>
                             <div className="card-body bg-white text-brown">
                                 <div className="movie-t2">
                                     <h5>{movie.title}</h5>
                                 </div>
                                 <div className="">
-                                    <small className="text-muted"></small>
                                     <div className="row">
                                         
                                         <div className="row">

@@ -8,15 +8,23 @@
 }
 .movie-poster{
     height: 300px;
-    border: 1px solid gold;
+    /* border: 1px solid gold; */
     border-radius: 10px;
     overflow: hidden;
     margin: 0;
+}
+.custom-image {
+    height: 450px; /* Đặt chiều cao cố định mà bạn muốn */
+    object-fit: cover; /* Đảm bảo ảnh không bị bóp méo */
 }
 .movie-poster > img{
     height: 100%;
     width: 100%;
 
+}
+.card-img-top{
+    height: 100;
+    /* object-fit: cover;  */
 }
 .movie-card-container{
     height: 550px;

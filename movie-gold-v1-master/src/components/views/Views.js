@@ -1,3 +1,4 @@
+import './View.css'
 import { useEffect, useRef } from 'react';
 import api from '../../api/axiosConfig';
 import { useParams } from 'react-router-dom';
@@ -8,64 +9,65 @@ import React, { useState } from "react";
 import { userCurrentId, userName } from '../header/Header.js';
 import Modal from "react-bootstrap/Modal";
 import Cookies from 'js-cookie';
+
 const Views = ({ getMovieData, movie, setMovie, reviews, setReviews, setSaveMovies, saveMovies }) => {
     const navigate = useNavigate();
     const params = useParams();
     const movieId = params.movieId;
+    const [none, setNone] = useState('none');
+    const [block, setBlock] = useState('block');
+
 
     function naseats(movieId) {
         setMovie(movie);
         navigate(`/views/seats/${movieId}`);
     }
-    useEffect(() => {      
-          getMovieData(movieId);
-    }, [])
-    const listStateMovies = 'list_state_movies'
-    var listSaveMovies = []
+    useEffect(() => {
+        getMovieData(movieId);      
+        console.log(saveMovies);
+    }, [saveMovies]);
+    useEffect(() => {
+        if (saveMovies?.some((pmovie) => pmovie?.imdbId === movie?.imdbId)) {
+            handleSetNone();
+        }
+    }, [movie]);
     const handleSaveMovies = (movie) => {
         setSaveMovies((prevMovies) => {
-          // Kiểm tra nếu movie đã tồn tại trong prevMovies thì không thêm vào
-            if (prevMovies?.some((pmovie) => pmovie === movie)) {
-            handleSetNone()
-            return prevMovies;
+            if (prevMovies.length === 0) {
+                handleSetNone();
+                
+                return [movie];
             }
-            // Nếu movie chưa tồn tại trong prevMovies thì thêm vào
-            // handleSetBlock()
+            if (prevMovies.some((pmovie) => pmovie?.imdbId === movie?.imdbId)) {
+                handleSetBlock();
+                return prevMovies;
+            }
+            handleSetNone();
             return [...prevMovies, movie];
         });
-        // alert("Lưu thành công");
-        // console.log(saveMovies)
-      };
+        console.log(saveMovies);
+    };
 
-    // const handleUnsaveMovie = () => {
-    //     for(let i = 0; i < saveMovies.length; i++){
-    //         if(movie.movieId == saveMovies[i].movieId)
-    //             saveMovies = saveMovies.filter(movie => movie !== saveMovies)
-    //             // console.log(movie)
-    //     }
-    // }
-
+    const handleDeleteMovie = (movieToDelete) => {
+        setSaveMovies((prevMovies) => {
+            const updatedMovies = prevMovies.filter((movie) => movie?.imdbId !== movieToDelete?.imdbId);
+            handleSetBlock();
+            return updatedMovies;
+        });
+        console.log(saveMovies);
+    };
     const handleSetNone = () => {
         setNone('block')
         setBlock('none')
-        let stateMovie = {
-            flag : 1,
-            movie_id : movieId
-        }
-        listSaveMovies.push(stateMovie)
-        // listSaveMovies2 = listSaveMovies
-        localStorage.setItem(listStateMovies, JSON.stringify(listSaveMovies)) 
-        // console.log(listSaveMovies)
     }
 
     const handleSetBlock = () => {
         setNone('none')
         setBlock('block')
-    }   
+    }
 
     // var listSaveMovies2 = []
-    const [none, setNone] = useState("none");
-    const [block, setBlock] = useState("block");
+
     function naseats(movieId) {
         setMovie(movie);
         navigate(`/views/seats/${movieId}`);
@@ -82,14 +84,14 @@ const Views = ({ getMovieData, movie, setMovie, reviews, setReviews, setSaveMovi
     }, [])
     const addReview = async (e) => {
         if (Cookies.get('user_name') != null) {
-            e.preventDefault();            
-            const rev = revText.current;            
+            e.preventDefault();
+            const rev = revText.current;
             try {
-                
+
                 if (rev.value ?? false) {
                     const response = await api.post("/api/v1/views", { user: Cookies.get('user_name'), reviewBody: rev.value, imdbId: movieId });
 
-                    const updatedReviews = [...reviews, { body: rev.value,userName: Cookies.get('user_name') }];
+                    const updatedReviews = [...reviews, { body: rev.value, userName: Cookies.get('user_name') }];
 
                     rev.value = "";
 
@@ -112,7 +114,7 @@ const Views = ({ getMovieData, movie, setMovie, reviews, setReviews, setSaveMovi
                     <Col><h3>{movie?.title}</h3></Col>
                 </Row>
                 <Col>
-                    <img src={movie?.poster} alt="" />
+                    <img src={movie?.poster} alt="" style={{ width: 500 }} />
                 </Col>
                 <Col>
                     {
@@ -193,22 +195,26 @@ const Views = ({ getMovieData, movie, setMovie, reviews, setReviews, setSaveMovi
                             </Row>
                             <Row className='mt-2'>
                                 <Col>
-                                <Button onClick={() => {
-                                    handleSaveMovies(movie)
-                                    // handleSetNone()
-                                    }
-                                }
-                                     className='btn btn-warning mt-3'  style={{ width: "100%", display: `${block}`}}>Lưu</Button>
-                                </Col>
-                            </Row>
-                            <Row className='mt-2'>
-                                <Col>
-                                <Button onClick={() => {
-                                    // handleUnsaveMovie()
-                                    handleSetBlock()
-                                    } 
-                                }
-                                    className='btn btn-danger mt-3'  style={{ width: "100%", display: `${none}`}}>Hủy lưu</Button>
+                                    <Row className='mt-2'>
+                                        <Col>
+                                            <Button
+                                                onClick={() => {
+                                                    handleSaveMovies(movie);
+                                                }}
+                                                className='btn btn-warning mt-3'
+                                                style={{ width: "100%", display: `${block}` }}>
+                                                Lưu
+                                            </Button>
+                                            <Button
+                                                onClick={() => {
+                                                    handleDeleteMovie(movie);
+                                                }}
+                                                className='btn btn-danger mt-3'
+                                                style={{ width: "100%", display: `${none}` }}>
+                                                Hủy lưu
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
 

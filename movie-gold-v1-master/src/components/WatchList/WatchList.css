@@ -1,0 +1,4 @@
+.custom-image {
+    height: 450px; /* Đặt chiều cao cố định mà bạn muốn */
+    object-fit: cover; /* Đảm bảo ảnh không bị bóp méo */
+}

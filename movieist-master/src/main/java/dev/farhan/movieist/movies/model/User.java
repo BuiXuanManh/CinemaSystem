@@ -3,6 +3,7 @@ package dev.farhan.movieist.movies.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NonNull;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +19,8 @@ import java.util.List;
 @Data
 public class User implements UserDetails {
     @Id
-    String id;
+    private ObjectId uid;
+    private String id;
     @Indexed(unique = true)
     @NonNull
     private String username;

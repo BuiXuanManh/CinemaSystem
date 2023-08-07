@@ -1,6 +1,7 @@
 package dev.farhan.movieist.movies.controller;
 
 
+import dev.farhan.movieist.movies.model.Movie;
 import dev.farhan.movieist.movies.model.Review;
 import dev.farhan.movieist.movies.model.Seat;
 import dev.farhan.movieist.movies.model.User;
@@ -34,7 +35,8 @@ public class UserREST {
     public ResponseEntity<?> me(@AuthenticationPrincipal User user, @PathVariable String id) {
         return ResponseEntity.ok(userRepository.findById(id));
     }
-//    @PostMapping("/momo/payment")
+
+    //    @PostMapping("/momo/payment")
 //    public ResponseEntity<?> processPayment(
 //            @AuthenticationPrincipal User user,
 //            @RequestBody Map<String, Object> paymentInfo
@@ -63,7 +65,22 @@ public class UserREST {
     @GetMapping("/user/{username}")
     public ResponseEntity<User> getUser(@PathVariable String username) {
         User a = service.findByUserName(username);
-        System.out.println(a);
         return new ResponseEntity<User>(a, HttpStatus.OK);
+    }
+
+    @PostMapping("/user/viewMovies/{username}")
+    public ResponseEntity<User> ViewMovies(@RequestBody List<Movie> movieList, @PathVariable String username) {
+        User a = service.findByUserName(username);
+        if (movieList != null) {
+            a.setViewMovies(movieList);
+        }
+        return new ResponseEntity<User>(service.saveUser(a), HttpStatus.OK);
+    }
+
+    @GetMapping("/ViewMovie/{username}")
+    public ResponseEntity<List<Movie>> getViewMovies(@PathVariable String username) {
+        User a = service.findByUserName(username);
+        List<Movie> b = a.getViewMovies();
+        return new ResponseEntity<List<Movie>>(b, HttpStatus.OK);
     }
 }

@@ -75,39 +75,5 @@ public class MovieService {
             return null;
         }
     }
-    public ResponseEntity<Movie> updateSeats2(List<String> updatedSeats, String imdbId, User us){
-        Optional<Movie> optionalMovie = repository.findMovieByImdbId(imdbId);
-        if (optionalMovie.isPresent()) {
-            Movie movie = optionalMovie.get();
-            List<Seat> movieSeats = movie.getSeats();
-            List<Seat> orderedSeats = us.getOrderedSeat();
-            for (Seat s : movieSeats) {
-                for (String updatedSeatName : updatedSeats) {
-                    if (s.getSeatName().equalsIgnoreCase(updatedSeatName)) {
-                        String status = s.getStatus();
-                        if (status.equals("OrderedSeat")) {
-//                            if(!s.getUserName().equalsIgnoreCase(us.getUsername())){
-//                                System.out.println(s.getUserName());
-//                                return new ResponseEntity<Movie>(HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//                            }
-                            s.setMoviesId(movie.getTitle());
-                            s.setStatus("lockedSeat");
-                            s.setUpdated(LocalDateTime.now());
-                            orderedSeats.add(s);
-                            System.out.println(s);
-                            SeatRepository.save(s);
-                        }
-                    }
-                }
-            }
-            us.setOrderedSeat(orderedSeats);
-            Movie updatedMovie = repository.save(movie);
-            userRepository.save(us);
-            return  new ResponseEntity<Movie>(updatedMovie,HttpStatus.OK);
-        } else {
-            return null;
-        }
-    }
 
 }

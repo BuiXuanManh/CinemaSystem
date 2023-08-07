@@ -23,8 +23,6 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Autowired
     UserRepository userRepository;
-
-
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
@@ -38,6 +36,9 @@ public class UserService implements UserDetailsService {
     public User findByUserName(String name){
         return userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("user name not found"));
+    }
+    public User saveUser(User user){
+        return userRepository.save(user);
     }
 
 }
